@@ -10,6 +10,7 @@ import struct
 import traceback
 import datetime
 import unicodedata
+import hashlib
 
 import xml.etree.cElementTree
 ElementTree = xml.etree.cElementTree
@@ -22,7 +23,12 @@ import FMPasteBoxVersion
 kwdbg = FMPasteBoxVersion.developmentversion
 kwlog = FMPasteBoxVersion.developmentversion
 
+import pprint
+pp = pprint.pprint
+
 import pdb
+kwdbg = True
+kwlog = True
 
 import urllib
 import urlparse
@@ -43,14 +49,10 @@ NSFileHandlingPanelOKButton  = AppKit.NSFileHandlingPanelOKButton
 NSPasteboard = AppKit.NSPasteboard
 NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
+
 #
 # globals
 #
-
-# seems like the standart naming scheme for the pasteboard server
-re_pbtype = re.compile( u"CorePasteboardFlavorType 0x([A-F0-9]{,8})")
-
-g_pboard = NSPasteboard.generalPasteboard()
 
 
 #
@@ -84,68 +86,6 @@ def makeunicode(s, srcencoding="utf-8", normalizer="NFC"):
 #
 # dialogs
 #
-def cancelContinueAlert(title, message, butt1="OK", butt2=False):
-    """Run a generic Alert with buttons "Weiter" & "Abbrechen".
-
-       Returns True if "Weiter"; False otherwise
-    """
-    alert = NSAlert.alloc().init()
-    alert.setAlertStyle_( 0 )
-    alert.setInformativeText_( title )
-    alert.setMessageText_( message )
-    alert.setShowsHelp_( False )
-    alert.addButtonWithTitle_( butt1 )
-
-    if butt2:
-        # button 2 has keyboard equivalent "Escape"
-        button2 = alert.addButtonWithTitle_( butt2 )
-        button2.setKeyEquivalent_( unichr(27) )
-
-    f = alert.runModal()
-    return f == AppKit.NSAlertFirstButtonReturn
-
-
-def errorDialog( message="Error", title="Some error occured..."):
-    return cancelContinueAlert(title, message)
-
-
-#
-# Open File
-#
-def getFileDialog(multiple=False):
-    panel = NSOpenPanel.openPanel()
-    panel.setCanChooseFiles_(True)
-    panel.setCanChooseDirectories_(False)
-    panel.setAllowsMultipleSelection_(multiple)
-    rval = panel.runModalForTypes_( None )
-    if rval:
-        return [t for t in panel.filenames()]
-    return []
-
-
-def getApplicationDialog():
-    panel = NSOpenPanel.openPanel()
-    panel.setCanChooseFiles_(True)
-    panel.setCanChooseDirectories_(False)
-    panel.setAllowsMultipleSelection_(False)
-    rval = panel.runModalForTypes_( ['app'] )
-    if rval:
-        l = [makeunicode(t.path()) for t in panel.URLs()]
-        return l[0]
-    return ""
-
-
-def getFolderDialog(multiple=False):
-    panel = NSOpenPanel.openPanel()
-    panel.setCanChooseFiles_(False)
-    panel.setCanChooseDirectories_(True)
-    panel.setAllowsMultipleSelection_(multiple)
-    rval = panel.runModalForTypes_([])
-    if rval:
-        return [t for t in panel.filenames()]
-    return []
-
-
 def NSURL2str( nsurl ):
     if isinstance(nsurl, NSURL):
         return str(nsurl.absoluteString())
@@ -155,31 +95,6 @@ def NSURL2str( nsurl ):
 # File save dialog
 #
 # SHOULD NOT BE USED ANYMORE (NSDocument handling)
-def saveAsDialog(path):
-    panel = NSSavePanel.savePanel()
-
-    if path:
-        panel.setDirectory_( path )
-
-    panel.setMessage_( u"Save as OPML" )
-    panel.setExtensionHidden_( False )
-    panel.setCanSelectHiddenExtension_(True)
-    panel.setRequiredFileType_( u"opml" )
-    if path:
-        if not os.path.isdir( path ):
-            folder, fle = os.path.split(path)
-        else:
-            folder = path
-            fle = "Untitled.opml"
-        rval = panel.runModalForDirectory_file_(folder, fle)
-    else:
-        rval = panel.runModal()
-
-    if rval == NSFileHandlingPanelOKButton:
-        return panel.filename()
-    return False
-
-
 def getFileProperties( theFile ):
     """
     """
@@ -258,6 +173,102 @@ def uniquepath(folder, filenamebase, ext, nfill=3, startindex=1, sep="_", always
 # pasteboard utilities
 #
 
+def gethashval( s ):
+    m = hashlib.sha1()
+    size = len(s)
+
+    t = "blob %i\0%s" % (size, s)
+    m.update(t)
+    return  (m.hexdigest(), size)
+
+
+def cancelContinueAlert(title, message, butt1="OK", butt2=False):
+    """Run a generic Alert with buttons "Weiter" & "Abbrechen".
+
+       Returns True if "Weiter"; False otherwise
+    """
+    alert = NSAlert.alloc().init()
+    alert.setAlertStyle_( 0 )
+    alert.setInformativeText_( title )
+    alert.setMessageText_( message )
+    alert.setShowsHelp_( False )
+    alert.addButtonWithTitle_( butt1 )
+
+    if butt2:
+        # button 2 has keyboard equivalent "Escape"
+        button2 = alert.addButtonWithTitle_( butt2 )
+        button2.setKeyEquivalent_( unichr(27) )
+
+    f = alert.runModal()
+    return f == AppKit.NSAlertFirstButtonReturn
+
+
+def errorDialog( message="Error", title="Some error occured..."):
+    return cancelContinueAlert(title, message)
+
+
+#
+# Open File
+#
+def getFileDialog(multiple=False):
+    panel = NSOpenPanel.openPanel()
+    panel.setCanChooseFiles_(True)
+    panel.setCanChooseDirectories_(False)
+    panel.setAllowsMultipleSelection_(multiple)
+    rval = panel.runModalForTypes_( None )
+    if rval:
+        return [t for t in panel.filenames()]
+    return []
+
+
+def getApplicationDialog():
+    panel = NSOpenPanel.openPanel()
+    panel.setCanChooseFiles_(True)
+    panel.setCanChooseDirectories_(False)
+    panel.setAllowsMultipleSelection_(False)
+    rval = panel.runModalForTypes_( ['app'] )
+    if rval:
+        l = [makeunicode(t.path()) for t in panel.URLs()]
+        return l[0]
+    return ""
+
+
+def getFolderDialog(multiple=False):
+    panel = NSOpenPanel.openPanel()
+    panel.setCanChooseFiles_(False)
+    panel.setCanChooseDirectories_(True)
+    panel.setAllowsMultipleSelection_(multiple)
+    rval = panel.runModalForTypes_([])
+    if rval:
+        return [t for t in panel.filenames()]
+    return []
+
+
+def saveAsDialog(path):
+    panel = NSSavePanel.savePanel()
+
+    if path:
+        panel.setDirectory_( path )
+
+    panel.setMessage_( u"Save as OPML" )
+    panel.setExtensionHidden_( False )
+    panel.setCanSelectHiddenExtension_(True)
+    panel.setRequiredFileType_( u"opml" )
+    if path:
+        if not os.path.isdir( path ):
+            folder, fle = os.path.split(path)
+        else:
+            folder = path
+            fle = "Untitled.opml"
+        rval = panel.runModalForDirectory_file_(folder, fle)
+    else:
+        rval = panel.runModal()
+
+    if rval == NSFileHandlingPanelOKButton:
+        return panel.filename()
+    return False
+
+
 def get_type_from_hexstring( hexstring ):
     """Extract the 4-char macroman type code from the pasteboard type name.
     
@@ -286,13 +297,16 @@ def get_type_from_intstring( intstring ):
 def get_flavor(s):
     """Return the 4-char type from a pasteboard name
     """
+    
+    # seems like the standart naming scheme for the pasteboard server
+    re_pbtype = re.compile( u"CorePasteboardFlavorType 0x([A-F0-9]{,8})")
 
     m = re_pbtype.match(s)
-    u = ""
+    result = ""
     if m:
         t = m.groups()[0]
-        u = get_type_from_hexstring(t)
-    return u
+        result = get_type_from_hexstring(t)
+    return result
 
 
 def writePasteboardFlavour( folder, basename, ext, data ):
@@ -305,85 +319,170 @@ def writePasteboardFlavour( folder, basename, ext, data ):
 
 
 
-def read_pb( desiredTypes=None, writeFiles=True ):
+# fmpa 15
+# XML2 - 0x584D4C32 - generic xml for layout objects
 
-    result = {}
-    
-    pbtypes = g_pboard.types()
-    fname = "fmp_clip"
-    for t in pbtypes:
+# FileMaker Advanced Pasteboard types    
+# XMFD - 0x584D4644 - fields
+# XMTB - 0x584D5442 - basetables
+# XMSC - 0x584D5343 - scripts
+# XMSS - 0x584D5353 - script step
+# XMLO - 0x584D4C4F - layout objects
 
-        if desiredTypes:
-            if not t in desiredTypes:
-                continue
+# FileMaker Developer Pasteboard types
+# beides binaerformate
+# FTR5 - 0x46545235 - 
+# FMP5
+
+
+
+
+# FMPA 11
+# XMFN - 0x584D464E - Custom Functions
+def classifyPasteboard( resultdict ):
+    pass
+
+
+class PasteboardType(object):
+    def __init__(self, pbname, typ, dataType, name, fileExt):
+        self.pbname = pbname
+        self.typ = typ
+        self.dataType = dataType
+        self.name = name
+        self.fileExt = fileExt
+        self.alternates = []
+
+
+class PasteboardEntry(object):
+    def __init__(self, name, data, typ):
+        self.name = name
+        self.data = data
+        self.typ = typ
+
+
+fmpPasteboardTypes = {
+    u"CorePasteboardFlavorType 0x584D4C32":
+        PasteboardType(u"CorePasteboardFlavorType 0x584D4C32",
+                        'XML2', 'fullXML', "Layout Objects", '.xml'),
+
+    u"CorePasteboardFlavorType 0x584D5442":
+        PasteboardType(u"CorePasteboardFlavorType 0x584D5442",
+                        'XMTB', 'snippetXML', "Base Tables", '.xml'),
+
+
+    u"CorePasteboardFlavorType 0x584D4644":
+        PasteboardType(u"CorePasteboardFlavorType 0x584D4644",
+                        'XMFD', 'snippetXML', "Fields", '.xml'),
+
+    u"CorePasteboardFlavorType 0x584D5343":
+        PasteboardType(u"CorePasteboardFlavorType 0x584D5343",
+                        'XMSC', 'snippetXML', "Scripts", '.xml'),
+
+    u"CorePasteboardFlavorType 0x584D5353":
+        PasteboardType(u"CorePasteboardFlavorType 0x584D5353",
+                        'XMSS', 'snippetXML', "Script Steps", '.xml'),
+
+    u"CorePasteboardFlavorType 0x584D464E":
+        PasteboardType(u"CorePasteboardFlavorType 0x584D464E",
+                        'XMFN', 'snippetXML', "Custom Functions", '.xml'),
+
+    u"CorePasteboardFlavorType 0x584D4C4F":
+        PasteboardType(u"CorePasteboardFlavorType 0x584D4C4F",
+                        'XMLO', 'snippetXML', "Layout Objects (obsolete)", '.xml'),
+}
+
+
+additionalFMPPasteboardTypes = {
+    u"CorePasteboardFlavorType 0x4A504547":
+        PasteboardType(u"CorePasteboardFlavorType 0x4A504547",
+                        'JPEG', 'binaryData',
+                        "Layout Objects JPEG Image", '.jpg'),
+
+    u'Apple PDF pasteboard type':
+        PasteboardType(u'Apple PDF pasteboard type',
+                        'PDF', 'binaryData',
+                        "Layout Objects PDF Image", '.pdf'),
+
+    u'com.adobe.pdf':
+        PasteboardType(u'com.adobe.pdf',
+                        'PDF', 'binaryData',
+                        "Layout Objects PDF Image", '.pdf'),
+
+    u'Apple PICT pasteboard type':
+        PasteboardType(u'Apple PICT pasteboard type',
+                        'PICT', 'binaryData',
+                        "Layout Objects PICT Image (obsolete)", '.pic'),
+
+    u'NeXT TIFF v4.0 pasteboard type':
+        PasteboardType(u'NeXT TIFF v4.0 pasteboard type',
+                        'TIFF', 'binaryData',
+                        "Layout Objects TIFF Image", '.tif'),
+
+    u'public.jpeg':
+        PasteboardType(u'public.jpeg',
+                        'JPEG', 'binaryData',
+                        "Layout Objects JPEG Image", '.jpg'),
+
+    u'public.tiff':
+        PasteboardType(u'public.tiff',
+                        'TIFF', 'binaryData',
+                        "Layout Objects TIFF Image", '.tif'),
+}
+
+
+def read_pb():
+    result = None
+    hashes = set()
+
+    # pdb.set_trace()
+
+    pasteboard = NSPasteboard.generalPasteboard()
+    pbTypeNames = pasteboard.types()
+
+    # additionalFMPPasteboardTypes
+
+    for pbTypeName in pbTypeNames:
+
+        pbType = None
+        if pbTypeName in fmpPasteboardTypes:
+            pbType = fmpPasteboardTypes.get( pbTypeName, pbTypeName )
+            maintype = True
+        else:
+            continue
+            # NOT NOW
+            #if pbTypeName in additionalFMPPasteboardTypes:
+            #    pbType = additionalFMPPasteboardTypes.get( pbTypeName )
+            #    maintype = False
+
+
+        if pbTypeName == None:
+            continue
 
         try:
-            mactype = ""
-            data = g_pboard.dataForType_( t )
-            
-            if not data:
+            s = pasteboard.dataForType_( pbTypeName )
+            data = s.bytes().tobytes()
+
+            # dont load duplicate data
+            hashval, _ = gethashval( data )
+            if hashval in hashes:
                 continue
-
-            data = str( data )
-    
-            t = t.encode("utf-8")
-    
-            print
-            print t, 
-            if t.startswith( 'CorePasteboardFlavorType' ):
-                mactype = get_flavor(t)
-            print mactype
-
-            # FileMaker Advanced Pasteboard types    
-            # XMFD - 0x584D4644 - fields
-            # XMTB - 0x584D5442 - basetables
-            # XMSC - 0x584D5343 - scripts
-            # XMSS - 0x584D5353 - script step
-            # XMLO - 0x584D4C4F - layout objects
-
-            # FileMaker Developer Pasteboard types
-            # beides binaerformate
-            # FTR5 - 0x46545235 - 
-            # FMP5
+            hashes.add( hashval )
             
-            # FMPA 11
-            # XMFN - 0x584D464E - Custom Functions
-            
-            basename = t
-            ext = ".xml"
-            # if one of the FMP types, add an xml extension to the output file
-            if mactype in ( 'XMFD', 'XMTB', 'XMSC', 'XMSS', 'XMLO', 'XMFN'):
-                if writeFiles:
-                    writePasteboardFlavour( "./", basename, ".xml", data )
-                result[basename+'.xml'] = data
-            # handle pdf
-            elif t == u'Apple PDF pasteboard type':
-                if writeFiles:
-                    writePasteboardFlavour( "./", basename, ".pdf", data )
-                result[basename+'.pdf'] = data
+            data = makeunicode(data)
 
-            # handle PICT
-            elif t == u'Apple PICT pasteboard type':
-                # pdb.set_trace()
-                s = chr(0) * 512
-                if not data.startswith( s ):
-                    data = s + data
-                if writeFiles:
-                    writePasteboardFlavour( "./", basename, ".pict", data )
-                result[basename+'.pict'] = data
-
-            # generic
-            else:
-                if writeFiles:
-                    writePasteboardFlavour( "./", t + "_" + mactype, ".data", data )
-                result[t+ '_' + mactype + '.data'] = data
+            result = PasteboardEntry(pbTypeName, data, pbType)
+            return result
 
         except Exception, v:
             print v
-            pdb.set_trace()
+            # pdb.set_trace()
             pp(locals())
             print
+
+    # package it
+    
     return result
+
 
 def write_pb(typ_, data):
     # declare my type
@@ -398,7 +497,7 @@ def write_pb(typ_, data):
         print "Copy failed"
         pp(v)
     pp(ok)
-    
+
 
 # elaborate
 #
