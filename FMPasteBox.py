@@ -14,3 +14,4 @@ import FMPasteBoxAppDelegate
 
 if __name__ == '__main__':
     AppHelper.runEventLoop()
+

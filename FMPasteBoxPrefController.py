@@ -5,7 +5,6 @@
 #   Copyright 2018 Karsten Wolf. All rights reserved.
 #
 
-
 import objc
 
 import Foundation
@@ -50,4 +49,6 @@ class FMPasteBoxPreferenceController (NSWindowController):
             folders = FMPasteBoxTools.getApplicationDialog()
             if folders:
                 self.txtFileMakerAppPath.setStringValue_( folders )
+
+
 

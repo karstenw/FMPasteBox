@@ -41,11 +41,20 @@ class FMPasteBoxAppDelegate(NSObject):
     @objc.IBAction
     def getClipboard_(self, sender):
         print "getClipboard_"
-
+        # old schema
+        read_pb()
 
     @objc.IBAction
     def pushClipboard_(self, sender):
         print "pushClipboard_"
+        # old schema
+        fnroot, fnext = os.path.splitext( fn )
+        theType = makeunicode(fnroot)
+        fob = open(theFile, "r")
+        s = fob.read()
+        fob.close()
+        s = makeunicode( s )
+        write_pb(theType, s)
 
 
     def applicationDidFinishLaunching_(self, notification):
@@ -65,5 +74,6 @@ class FMPasteBoxAppDelegate(NSObject):
         if self.preferenceController == None:
             self.preferenceController = PrefController.alloc().init()
         self.preferenceController.showWindow_( self.preferenceController )
+
 
 

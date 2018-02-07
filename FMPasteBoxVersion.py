@@ -1,4 +1,3 @@
-
 import os
 
 appname ="FMPasteBox"
@@ -23,3 +22,4 @@ longdescription = u"""FMPasteBox is a Mac OS X application..."""
 #cachefolder = os.path.expanduser("~/Library/Application Support/%s" % appname )
 
 developmentversion = False
+
