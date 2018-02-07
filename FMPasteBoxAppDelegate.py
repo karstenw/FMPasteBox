@@ -29,6 +29,7 @@ read_pb = FMPasteBoxTools.read_pb
 write_pb = FMPasteBoxTools.write_pb
 fmpPasteboardTypes = FMPasteBoxTools.fmpPasteboardTypes
 additionalFMPPasteboardTypes = FMPasteBoxTools.additionalFMPPasteboardTypes
+displaynameTypes = FMPasteBoxTools.displaynameTypes
 
 import FMPasteBoxVersion
 
@@ -52,13 +53,13 @@ class FMPasteBoxAppDelegate(NSObject):
 
 
     def awakeFromNib(self):
+        # for later
         defaults = NSUserDefaults.standardUserDefaults()
 
+        # set up type menu
         self.menClipboardtype.removeAllItems()
         menuItems = [ u"" ]
-        for pbTypeName in fmpPasteboardTypes:
-            pbType = fmpPasteboardTypes[pbTypeName]
-            menuItems.append( pbType.name )
+        menuItems.extend( displaynameTypes.keys() )
         menuItems.sort()
         for menuItem in menuItems:
             self.menClipboardtype.addItemWithTitle_( menuItem )

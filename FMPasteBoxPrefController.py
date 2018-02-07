@@ -22,8 +22,13 @@ import FMPasteBoxTools
 class FMPasteBoxPreferenceController (NSWindowController):
 
     butSetFileMakerAppPath = objc.IBOutlet()
+    butSetExportsPath = objc.IBOutlet()
+
+    cbDoExports = objc.IBOutlet()
 
     txtFileMakerAppPath = objc.IBOutlet()
+    txtExportsPath = objc.IBOutlet()
+
 
     def init(self):
         self = self.initWithWindowNibName_("Preferences")

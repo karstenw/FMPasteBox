@@ -351,7 +351,15 @@ class PasteboardType(object):
         self.name = name
         self.fileExt = fileExt
         self.alternates = []
-
+    
+    def __repr__(self):
+        return u"PasteboardType(%s, %s, %s, %s, %s)" % (
+                repr(self.pbname),
+                repr(self.typ),
+                repr(self.dataType),
+                repr(self.name),
+                repr(self.fileExt))
+        
 
 class PasteboardEntry(object):
     def __init__(self, name, data, typ):
@@ -391,6 +399,14 @@ fmpPasteboardTypes = {
                         'XMLO', 'snippetXML', "Layout Objects (obsolete)", '.xml'),
 }
 
+
+displaynameTypes = {}
+for typeName in fmpPasteboardTypes:
+    typ = fmpPasteboardTypes[typeName]
+    displaynameTypes[typ.name] = typ
+
+if kwlog:
+    pp(displaynameTypes)
 
 additionalFMPPasteboardTypes = {
     u"CorePasteboardFlavorType 0x4A504547":
