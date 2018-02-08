@@ -322,6 +322,9 @@ def writePasteboardFlavour( folder, basename, ext, data ):
 # fmpa 15
 # XML2 - 0x584D4C32 - generic xml for layout objects
 
+# FMPA 11
+# XMFN - 0x584D464E - Custom Functions
+
 # FileMaker Advanced Pasteboard types    
 # XMFD - 0x584D4644 - fields
 # XMTB - 0x584D5442 - basetables
@@ -329,18 +332,11 @@ def writePasteboardFlavour( folder, basename, ext, data ):
 # XMSS - 0x584D5353 - script step
 # XMLO - 0x584D4C4F - layout objects
 
+
 # FileMaker Developer Pasteboard types
 # beides binaerformate
 # FTR5 - 0x46545235 - 
 # FMP5
-
-
-
-
-# FMPA 11
-# XMFN - 0x584D464E - Custom Functions
-def classifyPasteboard( resultdict ):
-    pass
 
 
 class PasteboardType(object):
@@ -367,6 +363,11 @@ class PasteboardEntry(object):
         self.data = data
         self.typ = typ
 
+    def __repr__(self):
+        return u"PasteboardEntry(%s, data[%i], %s)" % (
+                repr(self.name),
+                len(self.data),
+                repr(self.typ))
 
 fmpPasteboardTypes = {
     u"CorePasteboardFlavorType 0x584D4C32":

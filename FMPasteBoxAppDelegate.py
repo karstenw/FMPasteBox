@@ -17,16 +17,20 @@ import objc
 import Foundation
 NSObject = Foundation.NSObject
 NSMutableDictionary = Foundation.NSMutableDictionary
+NSData = Foundation.NSData
 
 import AppKit
 NSWindowController = AppKit.NSWindowController
 NSApplication = AppKit.NSApplication
 NSUserDefaults = AppKit.NSUserDefaults
 NSMutableAttributedString = AppKit.NSMutableAttributedString
+NSBeep = AppKit.NSBeep
+NSPasteboard = AppKit.NSPasteboard
 
 import FMPasteBoxTools
 read_pb = FMPasteBoxTools.read_pb
 write_pb = FMPasteBoxTools.write_pb
+makeunicode = FMPasteBoxTools.makeunicode
 fmpPasteboardTypes = FMPasteBoxTools.fmpPasteboardTypes
 additionalFMPPasteboardTypes = FMPasteBoxTools.additionalFMPPasteboardTypes
 displaynameTypes = FMPasteBoxTools.displaynameTypes
@@ -101,17 +105,29 @@ class FMPasteBoxAppDelegate(NSObject):
             print "ERROR status inserting:", v
 
 
+    def textView(self):
+        # model
+        storage = self.tfXMLEditor.textStorage()
+        chars = makeunicode( storage.string() )
+        return chars.encode("utf-8")
+
+
     @objc.IBAction
     def pushClipboard_(self, sender):
         print "pushClipboard_"
-        # old schema
-        fnroot, fnext = os.path.splitext( fn )
-        theType = makeunicode(fnroot)
-        fob = open(theFile, "r")
-        s = fob.read()
-        fob.close()
-        s = makeunicode( s )
-        write_pb(theType, s)
+
+        pasteboard = NSPasteboard.generalPasteboard()
+        pasteboard.clearContents()
+        data = makeunicode(self.textView())
+        data = data.encode("utf-8")
+        l = len(data)
+        nsdata = NSData.dataWithBytes_length_(data, l)
+        pasteboardType = displaynameTypes.get( self.menClipboardtype.title(), u"" )
+        if not pasteboardType:
+            NSBeep()
+            return False
+        pasteboardTypeName = pasteboardType.pbname
+        pasteboard.setData_forType_( nsdata, pasteboardTypeName)
 
 
     @objc.IBAction

@@ -19,19 +19,21 @@
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
 <v t="karstenw.20180207130300.6"><vh>applicationDidFinishLaunching_</vh></v>
 <v t="karstenw.20180207130300.4"><vh>getClipboard_</vh></v>
+<v t="karstenw.20180208030448.1"><vh>setTextView_</vh></v>
+<v t="karstenw.20180208030448.2"><vh>textView</vh></v>
 <v t="karstenw.20180207130300.5"><vh>pushClipboard_</vh></v>
 <v t="karstenw.20180207130300.7"><vh>showPreferencePanel_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130144.1" a="E"><vh>@clean FMPasteBoxPrefController.py</vh>
+<v t="karstenw.20180207130144.1"><vh>@clean FMPasteBoxPrefController.py</vh>
 <v t="karstenw.20180207130257.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207130257.2" a="E"><vh>class FMPasteBoxPreferenceController</vh>
+<v t="karstenw.20180207130257.2"><vh>class FMPasteBoxPreferenceController</vh>
 <v t="karstenw.20180207130257.3"><vh>init</vh></v>
 <v t="karstenw.20180207130257.4"><vh>windowWillClose_</vh></v>
 <v t="karstenw.20180207130257.5"><vh>chooseFolder_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130148.1" a="E"><vh>@clean FMPasteBoxTools.py</vh>
+<v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
 <v t="karstenw.20180207131813.1"><vh>GLOBALS</vh></v>
 <v t="karstenw.20180207131602.1"><vh>TOOLS</vh>
@@ -54,12 +56,13 @@
 <v t="karstenw.20180207130254.9"><vh>getFolderDialog</vh></v>
 <v t="karstenw.20180207130254.11"><vh>saveAsDialog</vh></v>
 </v>
-<v t="karstenw.20180207131708.1" a="E"><vh>PASTEBOARD TOOLS</vh>
+<v t="karstenw.20180207131708.1"><vh>PASTEBOARD TOOLS</vh>
 <v t="karstenw.20180207130254.17"><vh>get_type_from_hexstring</vh></v>
 <v t="karstenw.20180207130254.18"><vh>get_hexstring_for_type</vh></v>
 <v t="karstenw.20180207130254.19"><vh>get_type_from_intstring</vh></v>
 <v t="karstenw.20180207130254.20"><vh>get_flavor</vh></v>
 <v t="karstenw.20180207130254.21"><vh>writePasteboardFlavour</vh></v>
+<v t="karstenw.20180208030622.1"><vh>pasteboard types</vh></v>
 <v t="karstenw.20180207135146.1"><vh>PasteboardType</vh></v>
 <v t="karstenw.20180207193636.1"><vh>PasteboardEntry</vh></v>
 <v t="karstenw.20180207191920.1"><vh>Pasteboard Type structures</vh></v>
@@ -765,12 +768,12 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
     pp(ok)
 
 
-# elaborate
+</t>
+<t tx="karstenw.20180207130255.2"># elaborate
 #
 # this is hacky
 #
-</t>
-<t tx="karstenw.20180207130255.2">def parseScriptForExport( argumentfiles ):
+def parseScriptForExport( argumentfiles ):
 
     pdb.set_trace()
     
@@ -915,16 +918,20 @@ import objc
 import Foundation
 NSObject = Foundation.NSObject
 NSMutableDictionary = Foundation.NSMutableDictionary
+NSData = Foundation.NSData
 
 import AppKit
 NSWindowController = AppKit.NSWindowController
 NSApplication = AppKit.NSApplication
 NSUserDefaults = AppKit.NSUserDefaults
 NSMutableAttributedString = AppKit.NSMutableAttributedString
+NSBeep = AppKit.NSBeep
+NSPasteboard = AppKit.NSPasteboard
 
 import FMPasteBoxTools
 read_pb = FMPasteBoxTools.read_pb
 write_pb = FMPasteBoxTools.write_pb
+makeunicode = FMPasteBoxTools.makeunicode
 fmpPasteboardTypes = FMPasteBoxTools.fmpPasteboardTypes
 additionalFMPPasteboardTypes = FMPasteBoxTools.additionalFMPPasteboardTypes
 displaynameTypes = FMPasteBoxTools.displaynameTypes
@@ -966,29 +973,23 @@ def getClipboard_(self, sender):
     self.setTextView_( pasteboardContents.data )
 
 
-def setTextView_(self, s):
-    # model
-    storage = self.tfXMLEditor.textStorage()
-    try:
-        t = NSMutableAttributedString.alloc().initWithString_(s)
-        storage.setAttributedString_( t )
-    except Exception, v:
-        print
-        print "ERROR status inserting:", v
-
-
 </t>
 <t tx="karstenw.20180207130300.5">@objc.IBAction
 def pushClipboard_(self, sender):
     print "pushClipboard_"
-    # old schema
-    fnroot, fnext = os.path.splitext( fn )
-    theType = makeunicode(fnroot)
-    fob = open(theFile, "r")
-    s = fob.read()
-    fob.close()
-    s = makeunicode( s )
-    write_pb(theType, s)
+
+    pasteboard = NSPasteboard.generalPasteboard()
+    pasteboard.clearContents()
+    data = makeunicode(self.textView())
+    data = data.encode("utf-8")
+    l = len(data)
+    nsdata = NSData.dataWithBytes_length_(data, l)
+    pasteboardType = displaynameTypes.get( self.menClipboardtype.title(), u"" )
+    if not pasteboardType:
+        NSBeep()
+        return False
+    pasteboardTypeName = pasteboardType.pbname
+    pasteboard.setData_forType_( nsdata, pasteboardTypeName)
 
 
 </t>
@@ -1043,31 +1044,7 @@ if __name__ == '__main__':
 
 
 </t>
-<t tx="karstenw.20180207135146.1"># fmpa 15
-# XML2 - 0x584D4C32 - generic xml for layout objects
-
-# FileMaker Advanced Pasteboard types    
-# XMFD - 0x584D4644 - fields
-# XMTB - 0x584D5442 - basetables
-# XMSC - 0x584D5343 - scripts
-# XMSS - 0x584D5353 - script step
-# XMLO - 0x584D4C4F - layout objects
-
-# FileMaker Developer Pasteboard types
-# beides binaerformate
-# FTR5 - 0x46545235 - 
-# FMP5
-
-
-
-
-# FMPA 11
-# XMFN - 0x584D464E - Custom Functions
-def classifyPasteboard( resultdict ):
-    pass
-
-
-class PasteboardType(object):
+<t tx="karstenw.20180207135146.1">class PasteboardType(object):
     def __init__(self, pbname, typ, dataType, name, fileExt):
         self.pbname = pbname
         self.typ = typ
@@ -1181,6 +1158,11 @@ additionalFMPPasteboardTypes = {
         self.data = data
         self.typ = typ
 
+    def __repr__(self):
+        return u"PasteboardEntry(%s, data[%i], %s)" % (
+                repr(self.name),
+                len(self.data),
+                repr(self.typ))
 
 </t>
 <t tx="karstenw.20180207225504.1">def awakeFromNib(self):
@@ -1195,6 +1177,47 @@ additionalFMPPasteboardTypes = {
     for menuItem in menuItems:
         self.menClipboardtype.addItemWithTitle_( menuItem )
     self.menClipboardtype.setTitle_( u"" )
+
+
+</t>
+<t tx="karstenw.20180208030448.1">def setTextView_(self, s):
+    # model
+    storage = self.tfXMLEditor.textStorage()
+    try:
+        t = NSMutableAttributedString.alloc().initWithString_(s)
+        storage.setAttributedString_( t )
+    except Exception, v:
+        print
+        print "ERROR status inserting:", v
+
+
+</t>
+<t tx="karstenw.20180208030448.2">def textView(self):
+    # model
+    storage = self.tfXMLEditor.textStorage()
+    chars = makeunicode( storage.string() )
+    return chars.encode("utf-8")
+
+
+</t>
+<t tx="karstenw.20180208030622.1"># fmpa 15
+# XML2 - 0x584D4C32 - generic xml for layout objects
+
+# FMPA 11
+# XMFN - 0x584D464E - Custom Functions
+
+# FileMaker Advanced Pasteboard types    
+# XMFD - 0x584D4644 - fields
+# XMTB - 0x584D5442 - basetables
+# XMSC - 0x584D5343 - scripts
+# XMSS - 0x584D5353 - script step
+# XMLO - 0x584D4C4F - layout objects
+
+
+# FileMaker Developer Pasteboard types
+# beides binaerformate
+# FTR5 - 0x46545235 - 
+# FMP5
 
 
 </t>
