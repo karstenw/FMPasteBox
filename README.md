@@ -1,4 +1,4 @@
-## This is FMPasteBox the OSX FileMaker Clipboard translator. ##
+## FMPasteBox is a OSX FileMaker Clipboard translator. ##
 
 
 Currently it has only 2 functions:
@@ -8,3 +8,4 @@ Currently it has only 2 functions:
  
 + Put the text field contents onto the FileMaker clipboard.
  + This translates the text field back to FileMaker clipboard format. The target format is set by the menu.
+
