@@ -19,16 +19,13 @@ import mactypes
 import appscript
 asc = appscript
 
+import pdb
 import FMPasteBoxVersion
 kwdbg = FMPasteBoxVersion.developmentversion
 kwlog = FMPasteBoxVersion.developmentversion
 
 import pprint
 pp = pprint.pprint
-
-import pdb
-kwdbg = True
-kwlog = True
 
 import urllib
 import urlparse
@@ -49,15 +46,6 @@ NSFileHandlingPanelOKButton  = AppKit.NSFileHandlingPanelOKButton
 NSPasteboard = AppKit.NSPasteboard
 NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
-
-#
-# globals
-#
-
-
-#
-# tools
-#
 
 def num2ostype( num ):
     if num == 0:
@@ -81,20 +69,12 @@ def makeunicode(s, srcencoding="utf-8", normalizer="NFC"):
     return s
 
 
-
-
-#
-# dialogs
-#
 def NSURL2str( nsurl ):
     if isinstance(nsurl, NSURL):
         return str(nsurl.absoluteString())
     return nsurl
 
-#
-# File save dialog
-#
-# SHOULD NOT BE USED ANYMORE (NSDocument handling)
+
 def getFileProperties( theFile ):
     """
     """
@@ -169,9 +149,6 @@ def uniquepath(folder, filenamebase, ext, nfill=3, startindex=1, sep="_", always
 
         n += 1
 
-#
-# pasteboard utilities
-#
 
 def gethashval( s ):
     m = hashlib.sha1()
@@ -207,9 +184,6 @@ def errorDialog( message="Error", title="Some error occured..."):
     return cancelContinueAlert(title, message)
 
 
-#
-# Open File
-#
 def getFileDialog(multiple=False):
     panel = NSOpenPanel.openPanel()
     panel.setCanChooseFiles_(True)
@@ -317,8 +291,6 @@ def writePasteboardFlavour( folder, basename, ext, data ):
         f.close()
 
 
-
-
 # fmpa 15
 # XML2 - 0x584D4C32 - generic xml for layout objects
 
@@ -369,6 +341,9 @@ class PasteboardEntry(object):
                 len(self.data),
                 repr(self.typ))
 
+
+
+
 fmpPasteboardTypes = {
     u"CorePasteboardFlavorType 0x584D4C32":
         PasteboardType(u"CorePasteboardFlavorType 0x584D4C32",
@@ -406,8 +381,6 @@ for typeName in fmpPasteboardTypes:
     typ = fmpPasteboardTypes[typeName]
     displaynameTypes[typ.name] = typ
 
-if kwlog:
-    pp(displaynameTypes)
 
 additionalFMPPasteboardTypes = {
     u"CorePasteboardFlavorType 0x4A504547":
@@ -447,11 +420,10 @@ additionalFMPPasteboardTypes = {
 }
 
 
+
 def read_pb():
     result = None
     hashes = set()
-
-    # pdb.set_trace()
 
     pasteboard = NSPasteboard.generalPasteboard()
     pbTypeNames = pasteboard.types()
@@ -470,7 +442,6 @@ def read_pb():
             #if pbTypeName in additionalFMPPasteboardTypes:
             #    pbType = additionalFMPPasteboardTypes.get( pbTypeName )
             #    maintype = False
-
 
         if pbTypeName == None:
             continue
@@ -495,91 +466,7 @@ def read_pb():
             # pdb.set_trace()
             pp(locals())
             print
-
-    # package it
-    
     return result
 
-
-def write_pb(typ_, data):
-    # declare my type
-    
-    g_pboard.declareTypes_owner_([typ_], None)
-
-    ok = "NOPE"
-    try:
-        # write it to clipboard
-        ok = g_pboard.setString_forType_(data, typ_)
-    except NSPasteboardCommunicationException, v:
-        print "Copy failed"
-        pp(v)
-    pp(ok)
-
-
-# elaborate
-#
-# this is hacky
-#
-def parseScriptForExport( argumentfiles ):
-
-    pdb.set_trace()
-    
-    for af in argumentfiles:
-        af = os.path.abspath( af )
-        # folder of the ddr summary file
-        xml_folder = os.path.dirname( af )
-
-        # summary section
-        xmltree = ElementTree.parse( af )
-        root = xmltree.getroot()
-
-        # get all files for this DDR
-        scripts = root.findall( "Script" )
-
-        # pdb.set_trace()
-
-        i = 0
-        for script in scripts:
-
-            prefix = "00" + str(i)
-            prefix = prefix[-2:]
-            prefix = prefix + "_"
-            curr_output_name = prefix + "default_out.tab"
-            outfilepath = os.path.join( xml_folder, curr_output_name)
-            outfile = open(outfilepath, 'w')
-
-            name = script.attrib['name']
-
-            for scriptstep in script.getiterator("Step"):
-
-                stepname = scriptstep.attrib["name"]
-
-                if stepname == "Set Variable":
-                    for value in scriptstep:
-                        for calculation in value:
-                            v = calculation.text
-                            if '/' in v:
-                                v = v.strip("\r\n \t\"")
-                                w = v.split('/')
-                                curr_output_name = w[-1]
-                                basename, ext = os.path.splitext(curr_output_name)
-                                curr_output_name = basename + "_fieldnames" + ext
-                                outfile.close()
-                                outfilepath = os.path.join( xml_folder, curr_output_name)
-                                outfile = open(outfilepath, 'w')
-                                print
-                                print "# '%s'" % curr_output_name.encode("utf-8")
-
-                elif stepname == "Export Records":
-                    for exportentries in scriptstep.getiterator("ExportEntries"):
-                        for exportentry in exportentries.getiterator("ExportEntry"):
-                            for field in exportentry.getiterator("Field"):
-                                fieldname = field.attrib['name']
-                                fieldname = fieldname.encode("utf-8")
-                                fieldtable = field.attrib['table']
-                                fieldtable = fieldtable.encode("utf-8")
-                                print "'%s'\t'%s'" % (fieldname, fieldtable)
-                                outfile.write( "%s\n" % (fieldname,) )
-            outfile.close()
 
 

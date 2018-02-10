@@ -14,12 +14,11 @@
 </v>
 <v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
+<v t="karstenw.20180207130300.2"><vh>class FMPasteBoxAppDelegate</vh>
 <v t="karstenw.20180207130300.3"><vh>initialize</vh></v>
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
 <v t="karstenw.20180207130300.6"><vh>applicationDidFinishLaunching_</vh></v>
 <v t="karstenw.20180207130300.4"><vh>getClipboard_</vh></v>
-<v t="karstenw.20180208030448.1"><vh>setTextView_</vh></v>
 <v t="karstenw.20180208030448.2"><vh>textView</vh></v>
 <v t="karstenw.20180207130300.5"><vh>pushClipboard_</vh></v>
 <v t="karstenw.20180207130300.7"><vh>showPreferencePanel_</vh></v>
@@ -35,7 +34,6 @@
 </v>
 <v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207131813.1"><vh>GLOBALS</vh></v>
 <v t="karstenw.20180207131602.1"><vh>TOOLS</vh>
 <v t="karstenw.20180207130254.2"><vh>num2ostype</vh></v>
 <v t="karstenw.20180207130254.3"><vh>ostype2num</vh></v>
@@ -65,19 +63,21 @@
 <v t="karstenw.20180208030622.1"><vh>pasteboard types</vh></v>
 <v t="karstenw.20180207135146.1"><vh>PasteboardType</vh></v>
 <v t="karstenw.20180207193636.1"><vh>PasteboardEntry</vh></v>
-<v t="karstenw.20180207191920.1"><vh>Pasteboard Type structures</vh></v>
+<v t="karstenw.20180207191920.1"><vh>Pasteboard Type structures</vh>
+<v t="karstenw.20180210171940.1"><vh>fmpPasteboardTypes</vh></v>
+<v t="karstenw.20180210172000.1"><vh>displaynameTypes</vh></v>
+<v t="karstenw.20180210172023.1"><vh>additionalFMPPasteboardTypes</vh></v>
+</v>
 <v t="karstenw.20180207130254.22"><vh>read_pb</vh></v>
-<v t="karstenw.20180207130255.1"><vh>write_pb</vh></v>
 </v>
-<v t="karstenw.20180207130255.2"><vh>parseScriptForExport</vh></v>
 </v>
-<v t="karstenw.20180207130153.1"><vh>@clean FMPasteBoxVersion.py</vh>
+<v t="karstenw.20180207130153.1" a="E"><vh>@clean FMPasteBoxVersion.py</vh>
 <v t="karstenw.20180207130252.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130158.1"><vh>@clean fmpterms.py</vh>
+<v t="karstenw.20180207130158.1" a="E"><vh>@clean fmpterms.py</vh>
 <v t="karstenw.20180207130250.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
+<v t="karstenw.20180207130202.1" a="E"><vh>@clean setup.py</vh>
 <v t="karstenw.20180207130247.1"><vh>Declarations</vh></v>
 </v>
 </vnodes>
@@ -395,16 +395,13 @@ import mactypes
 import appscript
 asc = appscript
 
+import pdb
 import FMPasteBoxVersion
 kwdbg = FMPasteBoxVersion.developmentversion
 kwlog = FMPasteBoxVersion.developmentversion
 
 import pprint
 pp = pprint.pprint
-
-import pdb
-kwdbg = True
-kwlog = True
 
 import urllib
 import urlparse
@@ -432,10 +429,7 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
         return str(nsurl.absoluteString())
     return nsurl
 
-#
-# File save dialog
-#
-# SHOULD NOT BE USED ANYMORE (NSDocument handling)
+
 </t>
 <t tx="karstenw.20180207130254.11">def saveAsDialog(path):
     panel = NSSavePanel.savePanel()
@@ -541,9 +535,6 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
         n += 1
 
-#
-# pasteboard utilities
-#
 
 </t>
 <t tx="karstenw.20180207130254.17">def get_type_from_hexstring( hexstring ):
@@ -606,14 +597,10 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
         f.close()
 
 
-
-
 </t>
 <t tx="karstenw.20180207130254.22">def read_pb():
     result = None
     hashes = set()
-
-    # pdb.set_trace()
 
     pasteboard = NSPasteboard.generalPasteboard()
     pbTypeNames = pasteboard.types()
@@ -632,7 +619,6 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
             #if pbTypeName in additionalFMPPasteboardTypes:
             #    pbType = additionalFMPPasteboardTypes.get( pbTypeName )
             #    maintype = False
-
 
         if pbTypeName == None:
             continue
@@ -657,9 +643,6 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
             # pdb.set_trace()
             pp(locals())
             print
-
-    # package it
-    
     return result
 
 
@@ -680,11 +663,6 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
     return s
 
 
-
-
-#
-# dialogs
-#
 </t>
 <t tx="karstenw.20180207130254.5">def cancelContinueAlert(title, message, butt1="OK", butt2=False):
     """Run a generic Alert with buttons "Weiter" &amp; "Abbrechen".
@@ -712,9 +690,6 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
     return cancelContinueAlert(title, message)
 
 
-#
-# Open File
-#
 </t>
 <t tx="karstenw.20180207130254.7">def getFileDialog(multiple=False):
     panel = NSOpenPanel.openPanel()
@@ -753,89 +728,6 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
 
 </t>
-<t tx="karstenw.20180207130255.1">def write_pb(typ_, data):
-    # declare my type
-    
-    g_pboard.declareTypes_owner_([typ_], None)
-
-    ok = "NOPE"
-    try:
-        # write it to clipboard
-        ok = g_pboard.setString_forType_(data, typ_)
-    except NSPasteboardCommunicationException, v:
-        print "Copy failed"
-        pp(v)
-    pp(ok)
-
-
-</t>
-<t tx="karstenw.20180207130255.2"># elaborate
-#
-# this is hacky
-#
-def parseScriptForExport( argumentfiles ):
-
-    pdb.set_trace()
-    
-    for af in argumentfiles:
-        af = os.path.abspath( af )
-        # folder of the ddr summary file
-        xml_folder = os.path.dirname( af )
-
-        # summary section
-        xmltree = ElementTree.parse( af )
-        root = xmltree.getroot()
-
-        # get all files for this DDR
-        scripts = root.findall( "Script" )
-
-        # pdb.set_trace()
-
-        i = 0
-        for script in scripts:
-
-            prefix = "00" + str(i)
-            prefix = prefix[-2:]
-            prefix = prefix + "_"
-            curr_output_name = prefix + "default_out.tab"
-            outfilepath = os.path.join( xml_folder, curr_output_name)
-            outfile = open(outfilepath, 'w')
-
-            name = script.attrib['name']
-
-            for scriptstep in script.getiterator("Step"):
-
-                stepname = scriptstep.attrib["name"]
-
-                if stepname == "Set Variable":
-                    for value in scriptstep:
-                        for calculation in value:
-                            v = calculation.text
-                            if '/' in v:
-                                v = v.strip("\r\n \t\"")
-                                w = v.split('/')
-                                curr_output_name = w[-1]
-                                basename, ext = os.path.splitext(curr_output_name)
-                                curr_output_name = basename + "_fieldnames" + ext
-                                outfile.close()
-                                outfilepath = os.path.join( xml_folder, curr_output_name)
-                                outfile = open(outfilepath, 'w')
-                                print
-                                print "# '%s'" % curr_output_name.encode("utf-8")
-
-                elif stepname == "Export Records":
-                    for exportentries in scriptstep.getiterator("ExportEntries"):
-                        for exportentry in exportentries.getiterator("ExportEntry"):
-                            for field in exportentry.getiterator("Field"):
-                                fieldname = field.attrib['name']
-                                fieldname = fieldname.encode("utf-8")
-                                fieldtable = field.attrib['table']
-                                fieldtable = fieldtable.encode("utf-8")
-                                print "'%s'\t'%s'" % (fieldname, fieldtable)
-                                outfile.write( "%s\n" % (fieldname,) )
-            outfile.close()
-
-</t>
 <t tx="karstenw.20180207130257.1">#
 #   FMPasteBoxPreferenceController.py
 #
@@ -868,8 +760,8 @@ import FMPasteBoxTools
     txtFileMakerAppPath = objc.IBOutlet()
     txtExportsPath = objc.IBOutlet()
 
-
     @others
+
 </t>
 <t tx="karstenw.20180207130257.3">def init(self):
     self = self.initWithWindowNibName_("Preferences")
@@ -889,7 +781,6 @@ import FMPasteBoxTools
     defaults.setObject_forKey_(self.txtFileMakerAppPath.stringValue(),   u'txtFileMakerAppPath')
 
 
-
 </t>
 <t tx="karstenw.20180207130257.5">@objc.IBAction
 def chooseFolder_(self, sender):
@@ -897,6 +788,7 @@ def chooseFolder_(self, sender):
         folders = FMPasteBoxTools.getApplicationDialog()
         if folders:
             self.txtFileMakerAppPath.setStringValue_( folders )
+
 
 </t>
 <t tx="karstenw.20180207130300.1">#
@@ -930,7 +822,6 @@ NSPasteboard = AppKit.NSPasteboard
 
 import FMPasteBoxTools
 read_pb = FMPasteBoxTools.read_pb
-write_pb = FMPasteBoxTools.write_pb
 makeunicode = FMPasteBoxTools.makeunicode
 fmpPasteboardTypes = FMPasteBoxTools.fmpPasteboardTypes
 additionalFMPPasteboardTypes = FMPasteBoxTools.additionalFMPPasteboardTypes
@@ -948,8 +839,11 @@ PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
     butGetClipboard = objc.IBOutlet()
     butPushClipboard = objc.IBOutlet()
     tfXMLEditor = objc.IBOutlet()
+    appWindow = objc.IBOutlet()
 
     @others
+
+
 </t>
 <t tx="karstenw.20180207130300.3">def initialize(self):
     if kwlog:
@@ -963,21 +857,18 @@ PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
 </t>
 <t tx="karstenw.20180207130300.4">@objc.IBAction
 def getClipboard_(self, sender):
-    # pdb.set_trace()
     pasteboardContents = read_pb()
     if not pasteboardContents:
         return
     pbType = pasteboardContents.typ
     pbTypeName = pbType.name
     self.menClipboardtype.setTitle_( pbTypeName )
-    self.setTextView_( pasteboardContents.data )
-
-
+    self.tfXMLEditor.setString_( makeunicode( pasteboardContents.data ) )
+    window = self.tfXMLEditor.window()
+    window.makeFirstResponder_(self.tfXMLEditor)
 </t>
 <t tx="karstenw.20180207130300.5">@objc.IBAction
 def pushClipboard_(self, sender):
-    print "pushClipboard_"
-
     pasteboard = NSPasteboard.generalPasteboard()
     pasteboard.clearContents()
     data = makeunicode(self.textView())
@@ -996,13 +887,8 @@ def pushClipboard_(self, sender):
 <t tx="karstenw.20180207130300.6">def applicationDidFinishLaunching_(self, notification):
     app = NSApplication.sharedApplication()
     app.activateIgnoringOtherApps_(True)
-
-    # ugly hack
-    wins = app.windows()
-    if not wins:
-        return
-    win = wins[0]
-    controller = win.windowController()
+    window = self.tfXMLEditor.window()
+    window.makeFirstResponder_(self.tfXMLEditor)
 
 
 </t>
@@ -1031,19 +917,9 @@ import FMPasteBoxAppDelegate
 if __name__ == '__main__':
     AppHelper.runEventLoop()
 </t>
-<t tx="karstenw.20180207131602.1">#
-# tools
-#
-
-</t>
+<t tx="karstenw.20180207131602.1"></t>
 <t tx="karstenw.20180207131612.1"></t>
 <t tx="karstenw.20180207131708.1"></t>
-<t tx="karstenw.20180207131813.1">#
-# globals
-#
-
-
-</t>
 <t tx="karstenw.20180207135146.1">class PasteboardType(object):
     def __init__(self, pbname, typ, dataType, name, fileExt):
         self.pbname = pbname
@@ -1073,7 +949,70 @@ if __name__ == '__main__':
 
 
 </t>
-<t tx="karstenw.20180207191920.1">fmpPasteboardTypes = {
+<t tx="karstenw.20180207191920.1">
+
+</t>
+<t tx="karstenw.20180207193636.1">class PasteboardEntry(object):
+    def __init__(self, name, data, typ):
+        self.name = name
+        self.data = data
+        self.typ = typ
+
+    def __repr__(self):
+        return u"PasteboardEntry(%s, data[%i], %s)" % (
+                repr(self.name),
+                len(self.data),
+                repr(self.typ))
+
+
+</t>
+<t tx="karstenw.20180207225504.1">def awakeFromNib(self):
+    # for later
+    defaults = NSUserDefaults.standardUserDefaults()
+
+    # set up type menu
+    self.menClipboardtype.removeAllItems()
+    menuItems = [ u"" ]
+    menuItems.extend( displaynameTypes.keys() )
+    menuItems.sort()
+    for menuItem in menuItems:
+        self.menClipboardtype.addItemWithTitle_( menuItem )
+    self.menClipboardtype.setTitle_( u"" )
+    self.tfXMLEditor.setUsesFindPanel_(True)
+    window = self.tfXMLEditor.window()
+    window.makeFirstResponder_(self.tfXMLEditor)
+
+
+
+</t>
+<t tx="karstenw.20180208030448.2">def textView(self):
+    # model
+    return makeunicode( self.tfXMLEditor.string() )
+
+
+</t>
+<t tx="karstenw.20180208030622.1"># fmpa 15
+# XML2 - 0x584D4C32 - generic xml for layout objects
+
+# FMPA 11
+# XMFN - 0x584D464E - Custom Functions
+
+# FileMaker Advanced Pasteboard types    
+# XMFD - 0x584D4644 - fields
+# XMTB - 0x584D5442 - basetables
+# XMSC - 0x584D5343 - scripts
+# XMSS - 0x584D5353 - script step
+# XMLO - 0x584D4C4F - layout objects
+
+
+# FileMaker Developer Pasteboard types
+# beides binaerformate
+# FTR5 - 0x46545235 - 
+# FMP5
+
+
+</t>
+<t tx="karstenw.20180210171940.1">fmpPasteboardTypes = {
     u"CorePasteboardFlavorType 0x584D4C32":
         PasteboardType(u"CorePasteboardFlavorType 0x584D4C32",
                         'XML2', 'fullXML', "Layout Objects", '.xml'),
@@ -1105,15 +1044,15 @@ if __name__ == '__main__':
 }
 
 
-displaynameTypes = {}
+</t>
+<t tx="karstenw.20180210172000.1">displaynameTypes = {}
 for typeName in fmpPasteboardTypes:
     typ = fmpPasteboardTypes[typeName]
     displaynameTypes[typ.name] = typ
 
-if kwlog:
-    pp(displaynameTypes)
 
-additionalFMPPasteboardTypes = {
+</t>
+<t tx="karstenw.20180210172023.1">additionalFMPPasteboardTypes = {
     u"CorePasteboardFlavorType 0x4A504547":
         PasteboardType(u"CorePasteboardFlavorType 0x4A504547",
                         'JPEG', 'binaryData',
@@ -1150,74 +1089,6 @@ additionalFMPPasteboardTypes = {
                         "Layout Objects TIFF Image", '.tif'),
 }
 
-
-</t>
-<t tx="karstenw.20180207193636.1">class PasteboardEntry(object):
-    def __init__(self, name, data, typ):
-        self.name = name
-        self.data = data
-        self.typ = typ
-
-    def __repr__(self):
-        return u"PasteboardEntry(%s, data[%i], %s)" % (
-                repr(self.name),
-                len(self.data),
-                repr(self.typ))
-
-</t>
-<t tx="karstenw.20180207225504.1">def awakeFromNib(self):
-    # for later
-    defaults = NSUserDefaults.standardUserDefaults()
-
-    # set up type menu
-    self.menClipboardtype.removeAllItems()
-    menuItems = [ u"" ]
-    menuItems.extend( displaynameTypes.keys() )
-    menuItems.sort()
-    for menuItem in menuItems:
-        self.menClipboardtype.addItemWithTitle_( menuItem )
-    self.menClipboardtype.setTitle_( u"" )
-
-
-</t>
-<t tx="karstenw.20180208030448.1">def setTextView_(self, s):
-    # model
-    storage = self.tfXMLEditor.textStorage()
-    try:
-        t = NSMutableAttributedString.alloc().initWithString_(s)
-        storage.setAttributedString_( t )
-    except Exception, v:
-        print
-        print "ERROR status inserting:", v
-
-
-</t>
-<t tx="karstenw.20180208030448.2">def textView(self):
-    # model
-    storage = self.tfXMLEditor.textStorage()
-    chars = makeunicode( storage.string() )
-    return chars.encode("utf-8")
-
-
-</t>
-<t tx="karstenw.20180208030622.1"># fmpa 15
-# XML2 - 0x584D4C32 - generic xml for layout objects
-
-# FMPA 11
-# XMFN - 0x584D464E - Custom Functions
-
-# FileMaker Advanced Pasteboard types    
-# XMFD - 0x584D4644 - fields
-# XMTB - 0x584D5442 - basetables
-# XMSC - 0x584D5343 - scripts
-# XMSS - 0x584D5353 - script step
-# XMLO - 0x584D4C4F - layout objects
-
-
-# FileMaker Developer Pasteboard types
-# beides binaerformate
-# FTR5 - 0x46545235 - 
-# FMP5
 
 
 </t>

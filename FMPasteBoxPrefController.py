@@ -29,7 +29,6 @@ class FMPasteBoxPreferenceController (NSWindowController):
     txtFileMakerAppPath = objc.IBOutlet()
     txtExportsPath = objc.IBOutlet()
 
-
     def init(self):
         self = self.initWithWindowNibName_("Preferences")
 
@@ -47,13 +46,14 @@ class FMPasteBoxPreferenceController (NSWindowController):
         defaults.setObject_forKey_(self.txtFileMakerAppPath.stringValue(),   u'txtFileMakerAppPath')
 
 
-
     @objc.IBAction
     def chooseFolder_(self, sender):
         if sender == self.butSetFileMakerAppPath:
             folders = FMPasteBoxTools.getApplicationDialog()
             if folders:
                 self.txtFileMakerAppPath.setStringValue_( folders )
+
+
 
 
 
