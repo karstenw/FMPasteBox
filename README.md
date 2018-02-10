@@ -9,3 +9,6 @@ Currently it has only 2 functions:
 + Put the text field contents onto the FileMaker clipboard.
  + This translates the text field back to FileMaker clipboard format. The target format is set by the menu.
 
+
+A compiled application can be downloaded from my dropbox: [https://goo.gl/3cacFR](https://goo.gl/3cacFR)
+
