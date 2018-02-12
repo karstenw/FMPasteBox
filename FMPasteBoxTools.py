@@ -377,6 +377,7 @@ fmpPasteboardTypes = {
 
 
 displaynameTypes = {}
+# "Custom Functions" -> PasteboardType(u"CorePasteboardFlavorType 0x584D464E",...
 for typeName in fmpPasteboardTypes:
     typ = fmpPasteboardTypes[typeName]
     displaynameTypes[typ.name] = typ
