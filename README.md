@@ -36,3 +36,7 @@ This should work with Filemaker Pro Advanced 10-16; maybe versions 8 & 9 work to
 
 The app already has a preferences window in which you can select which Filemaker app to use.  This is __not yet functional__.  Just some preparations for future ideas...
 
+
+## History ##
+
+2018-02-10 - Version 0.1.0 - First release.
