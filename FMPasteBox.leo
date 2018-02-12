@@ -871,7 +871,6 @@ def getClipboard_(self, sender):
 </t>
 <t tx="karstenw.20180207130300.5">@objc.IBAction
 def pushClipboard_(self, sender):
-    pdb.set_trace()
     # get text view data
     data = makeunicode(self.textView())
     data = data.encode("utf-8")

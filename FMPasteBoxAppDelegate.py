@@ -104,7 +104,6 @@ class FMPasteBoxAppDelegate(NSObject):
 
     @objc.IBAction
     def pushClipboard_(self, sender):
-        pdb.set_trace()
         # get text view data
         data = makeunicode(self.textView())
         data = data.encode("utf-8")
