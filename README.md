@@ -22,9 +22,9 @@ It has been tested with FileMaker Pro Advanced 10 & 11 on OSX 10.6 and with File
 
 This should work with Filemaker Pro Advanced 10-16; maybe versions 8 & 9 work too.
 
-+ Copy things in Filemaker. Different versions allow different parts to be copy & pasted.
++ Copy things in Filemaker. Different versions allow different parts to be copy & pasted. Layout objects should work in all versions.
 
-+ Switch to FMPasteBox and press the "Get Clipboard" button. If the FileMaker clipboard is recognized, the test area will hold the XML and the menu will show the type.
++ Switch to FMPasteBox and press the "Get Clipboard" button. If the FileMaker clipboard is recognized, the text view will hold the XML and the menu will show the type.
 
 + Edit the XML.
 
@@ -38,5 +38,7 @@ The app already has a preferences window in which you can select which Filemaker
 
 
 ## History ##
+
+2018-02-12 - Version 0.1.1 - Fixed a bug where "Push Clipboard" would destroy the clipboeard even if there was nothing to push.
 
 2018-02-10 - Version 0.1.0 - First release.
