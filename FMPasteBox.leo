@@ -90,7 +90,6 @@
 <t tx="karstenw.20180207130137.1">@language python
 @tabwidth -4
 @others
-
 </t>
 <t tx="karstenw.20180207130144.1">@language python
 @tabwidth -4
@@ -842,8 +841,6 @@ PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
     appWindow = objc.IBOutlet()
 
     @others
-
-
 </t>
 <t tx="karstenw.20180207130300.3">def initialize(self):
     if kwlog:
@@ -859,9 +856,13 @@ PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
 def getClipboard_(self, sender):
     pasteboardContents = read_pb()
     if not pasteboardContents:
+        # abort - nothing on pasteboard
         NSBeep()
-        return False
-    self.menClipboardtype.setTitle_( pasteboardContents.typ )
+        # we must return implicit None! Crashing otherwise.
+        return
+    pbType = pasteboardContents.typ
+    pbTypeName = pbType.name
+    self.menClipboardtype.setTitle_( pbTypeName )
     self.tfXMLEditor.setString_( makeunicode( pasteboardContents.data ) )
     window = self.tfXMLEditor.window()
     window.makeFirstResponder_(self.tfXMLEditor)
@@ -870,6 +871,7 @@ def getClipboard_(self, sender):
 </t>
 <t tx="karstenw.20180207130300.5">@objc.IBAction
 def pushClipboard_(self, sender):
+    pdb.set_trace()
     # get text view data
     data = makeunicode(self.textView())
     data = data.encode("utf-8")
@@ -880,7 +882,8 @@ def pushClipboard_(self, sender):
     pasteboardType = displaynameTypes.get( self.menClipboardtype.title(), u"" )
     if not pasteboardType:
         NSBeep()
-        return False
+        # we must return implicit None! Crashing otherwise.
+        return
     # write to pasteboard
     pasteboard = NSPasteboard.generalPasteboard()
     pasteboard.clearContents()
@@ -902,7 +905,6 @@ def showPreferencePanel_(self, sender):
     if self.preferenceController == None:
         self.preferenceController = PrefController.alloc().init()
     self.preferenceController.showWindow_( self.preferenceController )
-
 
 </t>
 <t tx="karstenw.20180207130303.1">#
@@ -1049,6 +1051,7 @@ import FMPasteBoxAppDelegate
 
 </t>
 <t tx="karstenw.20180210172000.1">displaynameTypes = {}
+# "Custom Functions" -&gt; PasteboardType(u"CorePasteboardFlavorType 0x584D464E",...
 for typeName in fmpPasteboardTypes:
     typ = fmpPasteboardTypes[typeName]
     displaynameTypes[typ.name] = typ

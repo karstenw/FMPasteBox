@@ -85,9 +85,13 @@ class FMPasteBoxAppDelegate(NSObject):
     def getClipboard_(self, sender):
         pasteboardContents = read_pb()
         if not pasteboardContents:
+            # abort - nothing on pasteboard
             NSBeep()
-            return False
-        self.menClipboardtype.setTitle_( pasteboardContents.typ )
+            # we must return implicit None! Crashing otherwise.
+            return
+        pbType = pasteboardContents.typ
+        pbTypeName = pbType.name
+        self.menClipboardtype.setTitle_( pbTypeName )
         self.tfXMLEditor.setString_( makeunicode( pasteboardContents.data ) )
         window = self.tfXMLEditor.window()
         window.makeFirstResponder_(self.tfXMLEditor)
@@ -100,6 +104,7 @@ class FMPasteBoxAppDelegate(NSObject):
 
     @objc.IBAction
     def pushClipboard_(self, sender):
+        pdb.set_trace()
         # get text view data
         data = makeunicode(self.textView())
         data = data.encode("utf-8")
@@ -110,7 +115,8 @@ class FMPasteBoxAppDelegate(NSObject):
         pasteboardType = displaynameTypes.get( self.menClipboardtype.title(), u"" )
         if not pasteboardType:
             NSBeep()
-            return False
+            # we must return implicit None! Crashing otherwise.
+            return
         # write to pasteboard
         pasteboard = NSPasteboard.generalPasteboard()
         pasteboard.clearContents()
@@ -123,8 +129,4 @@ class FMPasteBoxAppDelegate(NSObject):
         if self.preferenceController == None:
             self.preferenceController = PrefController.alloc().init()
         self.preferenceController.showWindow_( self.preferenceController )
-
-
-
-
 
