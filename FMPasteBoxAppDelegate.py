@@ -68,10 +68,10 @@ class FMPasteBoxAppDelegate(NSObject):
         for menuItem in menuItems:
             self.menClipboardtype.addItemWithTitle_( menuItem )
         self.menClipboardtype.setTitle_( u"" )
+        # set up text view
         self.tfXMLEditor.setUsesFindPanel_(True)
         window = self.tfXMLEditor.window()
         window.makeFirstResponder_(self.tfXMLEditor)
-
 
 
     def applicationDidFinishLaunching_(self, notification):
@@ -85,13 +85,14 @@ class FMPasteBoxAppDelegate(NSObject):
     def getClipboard_(self, sender):
         pasteboardContents = read_pb()
         if not pasteboardContents:
-            return
-        pbType = pasteboardContents.typ
-        pbTypeName = pbType.name
-        self.menClipboardtype.setTitle_( pbTypeName )
+            NSBeep()
+            return False
+        self.menClipboardtype.setTitle_( pasteboardContents.typ )
         self.tfXMLEditor.setString_( makeunicode( pasteboardContents.data ) )
         window = self.tfXMLEditor.window()
         window.makeFirstResponder_(self.tfXMLEditor)
+
+
     def textView(self):
         # model
         return makeunicode( self.tfXMLEditor.string() )
@@ -99,16 +100,20 @@ class FMPasteBoxAppDelegate(NSObject):
 
     @objc.IBAction
     def pushClipboard_(self, sender):
-        pasteboard = NSPasteboard.generalPasteboard()
-        pasteboard.clearContents()
+        # get text view data
         data = makeunicode(self.textView())
         data = data.encode("utf-8")
         l = len(data)
         nsdata = NSData.dataWithBytes_length_(data, l)
+        
+        # get pasteboard type
         pasteboardType = displaynameTypes.get( self.menClipboardtype.title(), u"" )
         if not pasteboardType:
             NSBeep()
             return False
+        # write to pasteboard
+        pasteboard = NSPasteboard.generalPasteboard()
+        pasteboard.clearContents()
         pasteboardTypeName = pasteboardType.pbname
         pasteboard.setData_forType_( nsdata, pasteboardTypeName)
 

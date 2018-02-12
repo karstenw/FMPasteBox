@@ -11,10 +11,11 @@
 <vnodes>
 <v t="karstenw.20180207130038.1"><vh>@clean FMPasteBox.py</vh>
 <v t="karstenw.20180207130303.1"><vh>Declarations</vh></v>
+<v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
 <v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207130300.2"><vh>class FMPasteBoxAppDelegate</vh>
+<v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
 <v t="karstenw.20180207130300.3"><vh>initialize</vh></v>
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
 <v t="karstenw.20180207130300.6"><vh>applicationDidFinishLaunching_</vh></v>
@@ -24,15 +25,15 @@
 <v t="karstenw.20180207130300.7"><vh>showPreferencePanel_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130144.1"><vh>@clean FMPasteBoxPrefController.py</vh>
+<v t="karstenw.20180207130144.1" a="E"><vh>@clean FMPasteBoxPrefController.py</vh>
 <v t="karstenw.20180207130257.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207130257.2"><vh>class FMPasteBoxPreferenceController</vh>
+<v t="karstenw.20180207130257.2" a="E"><vh>class FMPasteBoxPreferenceController</vh>
 <v t="karstenw.20180207130257.3"><vh>init</vh></v>
 <v t="karstenw.20180207130257.4"><vh>windowWillClose_</vh></v>
 <v t="karstenw.20180207130257.5"><vh>chooseFolder_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
+<v t="karstenw.20180207130148.1" a="E"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
 <v t="karstenw.20180207131602.1"><vh>TOOLS</vh>
 <v t="karstenw.20180207130254.2"><vh>num2ostype</vh></v>
@@ -71,13 +72,13 @@
 <v t="karstenw.20180207130254.22"><vh>read_pb</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130153.1" a="E"><vh>@clean FMPasteBoxVersion.py</vh>
+<v t="karstenw.20180207130153.1"><vh>@clean FMPasteBoxVersion.py</vh>
 <v t="karstenw.20180207130252.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130158.1" a="E"><vh>@clean fmpterms.py</vh>
+<v t="karstenw.20180207130158.1"><vh>@clean fmpterms.py</vh>
 <v t="karstenw.20180207130250.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130202.1" a="E"><vh>@clean setup.py</vh>
+<v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
 <v t="karstenw.20180207130247.1"><vh>Declarations</vh></v>
 </v>
 </vnodes>
@@ -85,7 +86,6 @@
 <t tx="karstenw.20180207130038.1">@language python
 @tabwidth -4
 @others
-
 </t>
 <t tx="karstenw.20180207130137.1">@language python
 @tabwidth -4
@@ -358,7 +358,7 @@ author = "Karsten Wolf"
 years = "2018"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.1.0"
+version = "0.1.1"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
@@ -859,26 +859,31 @@ PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
 def getClipboard_(self, sender):
     pasteboardContents = read_pb()
     if not pasteboardContents:
-        return
-    pbType = pasteboardContents.typ
-    pbTypeName = pbType.name
-    self.menClipboardtype.setTitle_( pbTypeName )
+        NSBeep()
+        return False
+    self.menClipboardtype.setTitle_( pasteboardContents.typ )
     self.tfXMLEditor.setString_( makeunicode( pasteboardContents.data ) )
     window = self.tfXMLEditor.window()
     window.makeFirstResponder_(self.tfXMLEditor)
+
+
 </t>
 <t tx="karstenw.20180207130300.5">@objc.IBAction
 def pushClipboard_(self, sender):
-    pasteboard = NSPasteboard.generalPasteboard()
-    pasteboard.clearContents()
+    # get text view data
     data = makeunicode(self.textView())
     data = data.encode("utf-8")
     l = len(data)
     nsdata = NSData.dataWithBytes_length_(data, l)
+    
+    # get pasteboard type
     pasteboardType = displaynameTypes.get( self.menClipboardtype.title(), u"" )
     if not pasteboardType:
         NSBeep()
         return False
+    # write to pasteboard
+    pasteboard = NSPasteboard.generalPasteboard()
+    pasteboard.clearContents()
     pasteboardTypeName = pasteboardType.pbname
     pasteboard.setData_forType_( nsdata, pasteboardTypeName)
 
@@ -914,8 +919,6 @@ from PyObjCTools import AppHelper
 import FMPasteBoxAppDelegate
 
 
-if __name__ == '__main__':
-    AppHelper.runEventLoop()
 </t>
 <t tx="karstenw.20180207131602.1"></t>
 <t tx="karstenw.20180207131612.1"></t>
@@ -978,10 +981,10 @@ if __name__ == '__main__':
     for menuItem in menuItems:
         self.menClipboardtype.addItemWithTitle_( menuItem )
     self.menClipboardtype.setTitle_( u"" )
+    # set up text view
     self.tfXMLEditor.setUsesFindPanel_(True)
     window = self.tfXMLEditor.window()
     window.makeFirstResponder_(self.tfXMLEditor)
-
 
 
 </t>
@@ -1090,6 +1093,10 @@ for typeName in fmpPasteboardTypes:
 }
 
 
+
+</t>
+<t tx="karstenw.20180212004119.1">if __name__ == '__main__':
+    AppHelper.runEventLoop()
 
 </t>
 </tnodes>
