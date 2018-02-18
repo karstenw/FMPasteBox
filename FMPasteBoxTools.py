@@ -243,11 +243,19 @@ def saveAsDialog(path):
     return False
 
 
+def datetimestamp( dt=None ):
+    # '2018-02-17 19:41:02'
+    if not dt:
+        dt = datetime.datetime.now()
+    now = str(dt)
+    now = now[:19]
+    d, t = now.split()
+    t = t.replace(':', '')
+    return (d,t)
+
+
 def get_type_from_hexstring( hexstring ):
-    """Extract the 4-char macroman type code from the pasteboard type name.
-    
-    
-    """
+    """Extract the 4-char macroman type code from the pasteboard type name."""
     h = int(hexstring, 16)
     s = struct.pack(">I", h)
     s = unicode(s, 'macroman')
@@ -260,6 +268,7 @@ def get_hexstring_for_type( typ_ ):
     s = struct.pack( "BBBB", typ_ )
     i = struct.unpack( ">I", s)
     return hex(i)
+
 
 def get_type_from_intstring( intstring ):
     h = int(intstring)
@@ -312,36 +321,48 @@ def writePasteboardFlavour( folder, basename, ext, data ):
 
 
 class PasteboardType(object):
+    canonicalTypes = {
+        u'com.adobe.pdf': u'Apple PDF pasteboard type',
+        u'public.jpeg': u"CorePasteboardFlavorType 0x4A504547",
+        u'NeXT TIFF v4.0 pasteboard type': u'public.tiff',
+        # XML2
+        u'dyn.ah62d4rv4gk8zuxnqgk': u"CorePasteboardFlavorType 0x584D4C32",
+        
+    }
+
     def __init__(self, pbname, typ, dataType, name, fileExt):
         self.pbname = pbname
         self.typ = typ
         self.dataType = dataType
         self.name = name
         self.fileExt = fileExt
-        self.alternates = []
-    
+        self.canonicalType = self.canonicalTypes.get( pbname, pbname )
+
+
     def __repr__(self):
-        return u"PasteboardType(%s, %s, %s, %s, %s)" % (
+        return u"PasteboardType(%s, %s, %s, %s, %s, %s)" % (
                 repr(self.pbname),
                 repr(self.typ),
                 repr(self.dataType),
                 repr(self.name),
-                repr(self.fileExt))
-        
+                repr(self.fileExt),
+                repr(self.canonicalType),)
+
 
 class PasteboardEntry(object):
     def __init__(self, name, data, typ):
         self.name = name
         self.data = data
         self.typ = typ
+        self.additionals = []
+
 
     def __repr__(self):
-        return u"PasteboardEntry(%s, data[%i], %s)" % (
+        return u"PasteboardEntry(%s, data[%i], %s, %s)" % (
                 repr(self.name),
                 len(self.data),
-                repr(self.typ))
-
-
+                repr(self.typ),
+                repr(self.additionals))
 
 
 fmpPasteboardTypes = {
@@ -402,7 +423,7 @@ additionalFMPPasteboardTypes = {
     u'Apple PICT pasteboard type':
         PasteboardType(u'Apple PICT pasteboard type',
                         'PICT', 'binaryData',
-                        "Layout Objects PICT Image (obsolete)", '.pic'),
+                        "Layout Objects PICT Image (obsolete)", '.pict'),
 
     u'NeXT TIFF v4.0 pasteboard type':
         PasteboardType(u'NeXT TIFF v4.0 pasteboard type',
@@ -421,30 +442,28 @@ additionalFMPPasteboardTypes = {
 }
 
 
-
 def read_pb():
     result = None
     hashes = set()
 
+    additionals = []
     pasteboard = NSPasteboard.generalPasteboard()
     pbTypeNames = pasteboard.types()
 
+    
     # additionalFMPPasteboardTypes
 
     for pbTypeName in pbTypeNames:
 
-        pbType = None
+        pbType = mainType = None
         if pbTypeName in fmpPasteboardTypes:
-            pbType = fmpPasteboardTypes.get( pbTypeName, pbTypeName )
-            maintype = True
-        else:
-            continue
-            # NOT NOW
-            #if pbTypeName in additionalFMPPasteboardTypes:
-            #    pbType = additionalFMPPasteboardTypes.get( pbTypeName )
-            #    maintype = False
+            pbType = fmpPasteboardTypes.get( pbTypeName )
+            mainType = True
+        elif pbTypeName in additionalFMPPasteboardTypes:
+            pbType = additionalFMPPasteboardTypes.get( pbTypeName )
+            mainType = False
 
-        if pbTypeName == None:
+        if pbType == None:
             continue
 
         try:
@@ -457,17 +476,31 @@ def read_pb():
                 continue
             hashes.add( hashval )
             
-            data = makeunicode(data)
+            if mainType:
+                data = makeunicode(data)
 
-            result = PasteboardEntry(pbTypeName, data, pbType)
-            return result
+            pbTypeName = pbType.canonicalType
+            
+            pbEntry = PasteboardEntry(pbTypeName, data, pbType)
+            
+            if mainType:
+                result = pbEntry
+            else:
+                additionals.append( pbEntry )
 
         except Exception, v:
             print v
-            # pdb.set_trace()
+            pdb.set_trace()
             pp(locals())
             print
+
+    if result:
+        result.additionals = additionals
+
+    if kwlog:
+        print
+        print "result = "
+        pp(result)
+        print
     return result
-
-
 

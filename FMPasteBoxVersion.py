@@ -7,19 +7,14 @@ author = "Karsten Wolf"
 years = "2018"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.1.1"
+version = "0.2.0"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
 description = (u"Filemaker Pasteboard interface and editor")
-longdescription = u"""FMPasteBox is a Mac OS X application..."""
-
-# 
-#user_agent = "%s/%s +https://github.com/karstenw/FMPasteBox" % (appname, version)
+longdescription = u"""FMPasteBox is a Mac OS X application for translating the FileMaker clipboard."""
 
 #document_creator = "Created by %s %s" % (appname, version)
-
-#cachefolder = os.path.expanduser("~/Library/Application Support/%s" % appname )
 
 developmentversion = False
 

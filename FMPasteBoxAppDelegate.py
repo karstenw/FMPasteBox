@@ -33,6 +33,8 @@ makeunicode = FMPasteBoxTools.makeunicode
 fmpPasteboardTypes = FMPasteBoxTools.fmpPasteboardTypes
 additionalFMPPasteboardTypes = FMPasteBoxTools.additionalFMPPasteboardTypes
 displaynameTypes = FMPasteBoxTools.displaynameTypes
+datetimestamp = FMPasteBoxTools.datetimestamp
+
 
 import FMPasteBoxVersion
 
@@ -52,6 +54,8 @@ class FMPasteBoxAppDelegate(NSObject):
             print "FMPasteBoxAppDelegate.initialize()"
         userdefaults = NSMutableDictionary.dictionary()
         userdefaults.setObject_forKey_(u"", u'txtFileMakerAppPath')
+        userdefaults.setObject_forKey_(u"", u'txtExportsPath')
+        userdefaults.setObject_forKey_(False, u'cbDoExports')
         NSUserDefaults.standardUserDefaults().registerDefaults_(userdefaults)
         self.preferenceController = None
 
@@ -89,6 +93,35 @@ class FMPasteBoxAppDelegate(NSObject):
             NSBeep()
             # we must return implicit None! Crashing otherwise.
             return
+        defaults = NSUserDefaults.standardUserDefaults()
+        exportClipboards = defaults.boolForKey_( u'cbDoExports' )
+        if exportClipboards:
+            exportFolder = makeunicode(defaults.objectForKey_( u'txtExportsPath' ))
+            if os.path.exists( exportFolder ):
+                d,t = FMPasteBoxTools.datetimestamp()
+                dayFolder = os.path.join( exportFolder, d )
+                sessionFolder = os.path.join( dayFolder, t)
+                try:
+                    exportItems = pasteboardContents.additionals[:]
+                    exportItems.append( pasteboardContents )
+                    for item in exportItems:
+                        if not os.path.exists( sessionFolder ):
+                            os.makedirs( sessionFolder )
+                        name = item.typ.name
+                        ext = item.typ.fileExt
+                        data = item.data
+                        path = os.path.join( sessionFolder, name + ext )
+                        if ext == ".xml":
+                            data = makeunicode( data )
+                            data = data.encode( "utf-8" )
+                        f = open(path, 'w')
+                        f.write( data )
+                        f.close()
+                except Exception, err:
+                    print
+                    print "ADDITIONALS FAILED"
+                    print err
+                    print
         pbType = pasteboardContents.typ
         pbTypeName = pbType.name
         self.menClipboardtype.setTitle_( pbTypeName )

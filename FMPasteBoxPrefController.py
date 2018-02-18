@@ -38,12 +38,16 @@ class FMPasteBoxPreferenceController (NSWindowController):
 
         defaults = NSUserDefaults.standardUserDefaults()
         self.txtFileMakerAppPath.setStringValue_( defaults.objectForKey_( u'txtFileMakerAppPath') )
+        self.txtExportsPath.setStringValue_( defaults.objectForKey_( u'txtExportsPath') )
+        self.cbDoExports.setState_( defaults.objectForKey_( u'cbDoExports') )
         return self
 
 
     def windowWillClose_(self, notification):
         defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject_forKey_(self.txtFileMakerAppPath.stringValue(),   u'txtFileMakerAppPath')
+        defaults.setObject_forKey_(self.txtExportsPath.stringValue(),   u'txtExportsPath')
+        defaults.setObject_forKey_(self.cbDoExports.state(),   u'cbDoExports')
 
 
     @objc.IBAction
@@ -52,8 +56,10 @@ class FMPasteBoxPreferenceController (NSWindowController):
             folders = FMPasteBoxTools.getApplicationDialog()
             if folders:
                 self.txtFileMakerAppPath.setStringValue_( folders )
-
-
+        elif sender == self.butSetExportsPath:
+            folders = FMPasteBoxTools.getFolderDialog()
+            if folders:
+                self.txtExportsPath.setStringValue_( folders[0] )
 
 
 

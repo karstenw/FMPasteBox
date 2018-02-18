@@ -9,7 +9,7 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="karstenw.20180207130038.1"><vh>@clean FMPasteBox.py</vh>
+<v t="karstenw.20180207130038.1" a="E"><vh>@clean FMPasteBox.py</vh>
 <v t="karstenw.20180207130303.1"><vh>Declarations</vh></v>
 <v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
@@ -19,21 +19,23 @@
 <v t="karstenw.20180207130300.3"><vh>initialize</vh></v>
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
 <v t="karstenw.20180207130300.6"><vh>applicationDidFinishLaunching_</vh></v>
-<v t="karstenw.20180207130300.4"><vh>getClipboard_</vh></v>
+<v t="karstenw.20180207130300.4" a="E"><vh>getClipboard_</vh>
+<v t="karstenw.20180218113658.1"><vh>&lt;&lt;export clipboard to folder&gt;&gt;</vh></v>
+</v>
 <v t="karstenw.20180208030448.2"><vh>textView</vh></v>
 <v t="karstenw.20180207130300.5"><vh>pushClipboard_</vh></v>
 <v t="karstenw.20180207130300.7"><vh>showPreferencePanel_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130144.1" a="E"><vh>@clean FMPasteBoxPrefController.py</vh>
+<v t="karstenw.20180207130144.1"><vh>@clean FMPasteBoxPrefController.py</vh>
 <v t="karstenw.20180207130257.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207130257.2" a="E"><vh>class FMPasteBoxPreferenceController</vh>
+<v t="karstenw.20180207130257.2"><vh>class FMPasteBoxPreferenceController</vh>
 <v t="karstenw.20180207130257.3"><vh>init</vh></v>
 <v t="karstenw.20180207130257.4"><vh>windowWillClose_</vh></v>
 <v t="karstenw.20180207130257.5"><vh>chooseFolder_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130148.1" a="E"><vh>@clean FMPasteBoxTools.py</vh>
+<v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
 <v t="karstenw.20180207131602.1"><vh>TOOLS</vh>
 <v t="karstenw.20180207130254.2"><vh>num2ostype</vh></v>
@@ -94,13 +96,10 @@
 <t tx="karstenw.20180207130144.1">@language python
 @tabwidth -4
 @others
-
-
 </t>
 <t tx="karstenw.20180207130148.1">@language python
 @tabwidth -4
 @others
-
 </t>
 <t tx="karstenw.20180207130153.1">@language python
 @tabwidth -4
@@ -357,19 +356,14 @@ author = "Karsten Wolf"
 years = "2018"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.1.1"
+version = "0.2.0"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
 description = (u"Filemaker Pasteboard interface and editor")
-longdescription = u"""FMPasteBox is a Mac OS X application..."""
-
-# 
-#user_agent = "%s/%s +https://github.com/karstenw/FMPasteBox" % (appname, version)
+longdescription = u"""FMPasteBox is a Mac OS X application for translating the FileMaker clipboard."""
 
 #document_creator = "Created by %s %s" % (appname, version)
-
-#cachefolder = os.path.expanduser("~/Library/Application Support/%s" % appname )
 
 developmentversion = False
 </t>
@@ -455,6 +449,17 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
     return False
 
 
+def datetimestamp( dt=None ):
+    # '2018-02-17 19:41:02'
+    if not dt:
+        dt = datetime.datetime.now()
+    now = str(dt)
+    now = now[:19]
+    d, t = now.split()
+    t = t.replace(':', '')
+    return (d,t)
+
+
 </t>
 <t tx="karstenw.20180207130254.12">def getFileProperties( theFile ):
     """
@@ -537,10 +542,7 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
 </t>
 <t tx="karstenw.20180207130254.17">def get_type_from_hexstring( hexstring ):
-    """Extract the 4-char macroman type code from the pasteboard type name.
-    
-    
-    """
+    """Extract the 4-char macroman type code from the pasteboard type name."""
     h = int(hexstring, 16)
     s = struct.pack("&gt;I", h)
     s = unicode(s, 'macroman')
@@ -554,6 +556,7 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
     s = struct.pack( "BBBB", typ_ )
     i = struct.unpack( "&gt;I", s)
     return hex(i)
+
 
 </t>
 <t tx="karstenw.20180207130254.19">def get_type_from_intstring( intstring ):
@@ -601,25 +604,24 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
     result = None
     hashes = set()
 
+    additionals = []
     pasteboard = NSPasteboard.generalPasteboard()
     pbTypeNames = pasteboard.types()
 
+    
     # additionalFMPPasteboardTypes
 
     for pbTypeName in pbTypeNames:
 
-        pbType = None
+        pbType = mainType = None
         if pbTypeName in fmpPasteboardTypes:
-            pbType = fmpPasteboardTypes.get( pbTypeName, pbTypeName )
-            maintype = True
-        else:
-            continue
-            # NOT NOW
-            #if pbTypeName in additionalFMPPasteboardTypes:
-            #    pbType = additionalFMPPasteboardTypes.get( pbTypeName )
-            #    maintype = False
+            pbType = fmpPasteboardTypes.get( pbTypeName )
+            mainType = True
+        elif pbTypeName in additionalFMPPasteboardTypes:
+            pbType = additionalFMPPasteboardTypes.get( pbTypeName )
+            mainType = False
 
-        if pbTypeName == None:
+        if pbType == None:
             continue
 
         try:
@@ -632,18 +634,33 @@ NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
                 continue
             hashes.add( hashval )
             
-            data = makeunicode(data)
+            if mainType:
+                data = makeunicode(data)
 
-            result = PasteboardEntry(pbTypeName, data, pbType)
-            return result
+            pbTypeName = pbType.canonicalType
+            
+            pbEntry = PasteboardEntry(pbTypeName, data, pbType)
+            
+            if mainType:
+                result = pbEntry
+            else:
+                additionals.append( pbEntry )
 
         except Exception, v:
             print v
-            # pdb.set_trace()
+            pdb.set_trace()
             pp(locals())
             print
-    return result
 
+    if result:
+        result.additionals = additionals
+
+    if kwlog:
+        print
+        print "result = "
+        pp(result)
+        print
+    return result
 
 </t>
 <t tx="karstenw.20180207130254.3">def ostype2num( ostype ):
@@ -771,6 +788,8 @@ import FMPasteBoxTools
 
     defaults = NSUserDefaults.standardUserDefaults()
     self.txtFileMakerAppPath.setStringValue_( defaults.objectForKey_( u'txtFileMakerAppPath') )
+    self.txtExportsPath.setStringValue_( defaults.objectForKey_( u'txtExportsPath') )
+    self.cbDoExports.setState_( defaults.objectForKey_( u'cbDoExports') )
     return self
 
 
@@ -778,6 +797,8 @@ import FMPasteBoxTools
 <t tx="karstenw.20180207130257.4">def windowWillClose_(self, notification):
     defaults = NSUserDefaults.standardUserDefaults()
     defaults.setObject_forKey_(self.txtFileMakerAppPath.stringValue(),   u'txtFileMakerAppPath')
+    defaults.setObject_forKey_(self.txtExportsPath.stringValue(),   u'txtExportsPath')
+    defaults.setObject_forKey_(self.cbDoExports.state(),   u'cbDoExports')
 
 
 </t>
@@ -787,6 +808,10 @@ def chooseFolder_(self, sender):
         folders = FMPasteBoxTools.getApplicationDialog()
         if folders:
             self.txtFileMakerAppPath.setStringValue_( folders )
+    elif sender == self.butSetExportsPath:
+        folders = FMPasteBoxTools.getFolderDialog()
+        if folders:
+            self.txtExportsPath.setStringValue_( folders[0] )
 
 
 </t>
@@ -825,6 +850,8 @@ makeunicode = FMPasteBoxTools.makeunicode
 fmpPasteboardTypes = FMPasteBoxTools.fmpPasteboardTypes
 additionalFMPPasteboardTypes = FMPasteBoxTools.additionalFMPPasteboardTypes
 displaynameTypes = FMPasteBoxTools.displaynameTypes
+datetimestamp = FMPasteBoxTools.datetimestamp
+
 
 import FMPasteBoxVersion
 
@@ -847,6 +874,8 @@ PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
         print "FMPasteBoxAppDelegate.initialize()"
     userdefaults = NSMutableDictionary.dictionary()
     userdefaults.setObject_forKey_(u"", u'txtFileMakerAppPath')
+    userdefaults.setObject_forKey_(u"", u'txtExportsPath')
+    userdefaults.setObject_forKey_(False, u'cbDoExports')
     NSUserDefaults.standardUserDefaults().registerDefaults_(userdefaults)
     self.preferenceController = None
 
@@ -860,6 +889,11 @@ def getClipboard_(self, sender):
         NSBeep()
         # we must return implicit None! Crashing otherwise.
         return
+    defaults = NSUserDefaults.standardUserDefaults()
+    exportClipboards = defaults.boolForKey_( u'cbDoExports' )
+    if exportClipboards:
+        exportFolder = makeunicode(defaults.objectForKey_( u'txtExportsPath' ))
+        &lt;&lt;export clipboard to folder&gt;&gt;
     pbType = pasteboardContents.typ
     pbTypeName = pbType.name
     self.menClipboardtype.setTitle_( pbTypeName )
@@ -925,22 +959,33 @@ import FMPasteBoxAppDelegate
 <t tx="karstenw.20180207131612.1"></t>
 <t tx="karstenw.20180207131708.1"></t>
 <t tx="karstenw.20180207135146.1">class PasteboardType(object):
+    canonicalTypes = {
+        u'com.adobe.pdf': u'Apple PDF pasteboard type',
+        u'public.jpeg': u"CorePasteboardFlavorType 0x4A504547",
+        u'NeXT TIFF v4.0 pasteboard type': u'public.tiff',
+        # XML2
+        u'dyn.ah62d4rv4gk8zuxnqgk': u"CorePasteboardFlavorType 0x584D4C32",
+        
+    }
+
     def __init__(self, pbname, typ, dataType, name, fileExt):
         self.pbname = pbname
         self.typ = typ
         self.dataType = dataType
         self.name = name
         self.fileExt = fileExt
-        self.alternates = []
-    
+        self.canonicalType = self.canonicalTypes.get( pbname, pbname )
+
+
     def __repr__(self):
-        return u"PasteboardType(%s, %s, %s, %s, %s)" % (
+        return u"PasteboardType(%s, %s, %s, %s, %s, %s)" % (
                 repr(self.pbname),
                 repr(self.typ),
                 repr(self.dataType),
                 repr(self.name),
-                repr(self.fileExt))
-        
+                repr(self.fileExt),
+                repr(self.canonicalType),)
+
 
 </t>
 <t tx="karstenw.20180207150126.1">def gethashval( s ):
@@ -961,14 +1006,15 @@ import FMPasteBoxAppDelegate
         self.name = name
         self.data = data
         self.typ = typ
+        self.additionals = []
+
 
     def __repr__(self):
-        return u"PasteboardEntry(%s, data[%i], %s)" % (
+        return u"PasteboardEntry(%s, data[%i], %s, %s)" % (
                 repr(self.name),
                 len(self.data),
-                repr(self.typ))
-
-
+                repr(self.typ),
+                repr(self.additionals))
 </t>
 <t tx="karstenw.20180207225504.1">def awakeFromNib(self):
     # for later
@@ -1076,7 +1122,7 @@ for typeName in fmpPasteboardTypes:
     u'Apple PICT pasteboard type':
         PasteboardType(u'Apple PICT pasteboard type',
                         'PICT', 'binaryData',
-                        "Layout Objects PICT Image (obsolete)", '.pic'),
+                        "Layout Objects PICT Image (obsolete)", '.pict'),
 
     u'NeXT TIFF v4.0 pasteboard type':
         PasteboardType(u'NeXT TIFF v4.0 pasteboard type',
@@ -1095,11 +1141,36 @@ for typeName in fmpPasteboardTypes:
 }
 
 
-
 </t>
 <t tx="karstenw.20180212004119.1">if __name__ == '__main__':
     AppHelper.runEventLoop()
 
+</t>
+<t tx="karstenw.20180218113658.1">if os.path.exists( exportFolder ):
+    d,t = FMPasteBoxTools.datetimestamp()
+    dayFolder = os.path.join( exportFolder, d )
+    sessionFolder = os.path.join( dayFolder, t)
+    try:
+        exportItems = pasteboardContents.additionals[:]
+        exportItems.append( pasteboardContents )
+        for item in exportItems:
+            if not os.path.exists( sessionFolder ):
+                os.makedirs( sessionFolder )
+            name = item.typ.name
+            ext = item.typ.fileExt
+            data = item.data
+            path = os.path.join( sessionFolder, name + ext )
+            if ext == ".xml":
+                data = makeunicode( data )
+                data = data.encode( "utf-8" )
+            f = open(path, 'w')
+            f.write( data )
+            f.close()
+    except Exception, err:
+        print
+        print "ADDITIONALS FAILED"
+        print err
+        print
 </t>
 </tnodes>
 </leo_file>
