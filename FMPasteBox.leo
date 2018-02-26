@@ -9,17 +9,18 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="karstenw.20180207130038.1" a="E"><vh>@clean FMPasteBox.py</vh>
+<v t="karstenw.20180225140915.1" a="E"><vh>Application</vh>
+<v t="karstenw.20180207130038.1"><vh>@clean FMPasteBox.py</vh>
 <v t="karstenw.20180207130303.1"><vh>Declarations</vh></v>
 <v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
 <v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
+<v t="karstenw.20180207130300.2"><vh>class FMPasteBoxAppDelegate</vh>
 <v t="karstenw.20180207130300.3"><vh>initialize</vh></v>
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
 <v t="karstenw.20180207130300.6"><vh>applicationDidFinishLaunching_</vh></v>
-<v t="karstenw.20180207130300.4" a="E"><vh>getClipboard_</vh>
+<v t="karstenw.20180207130300.4"><vh>getClipboard_</vh>
 <v t="karstenw.20180218113658.1"><vh>&lt;&lt;export clipboard to folder&gt;&gt;</vh></v>
 </v>
 <v t="karstenw.20180208030448.2"><vh>textView</vh></v>
@@ -74,14 +75,15 @@
 <v t="karstenw.20180207130254.22"><vh>read_pb</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130153.1"><vh>@clean FMPasteBoxVersion.py</vh>
+<v t="karstenw.20180207130153.1" a="E"><vh>@clean FMPasteBoxVersion.py</vh>
 <v t="karstenw.20180207130252.1"><vh>Declarations</vh></v>
 </v>
 <v t="karstenw.20180207130158.1"><vh>@clean fmpterms.py</vh>
 <v t="karstenw.20180207130250.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
+<v t="karstenw.20180207130202.1" a="E"><vh>@clean setup.py</vh>
 <v t="karstenw.20180207130247.1"><vh>Declarations</vh></v>
+</v>
 </v>
 </vnodes>
 <tnodes>
@@ -356,7 +358,7 @@ author = "Karsten Wolf"
 years = "2018"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.2.0"
+version = "0.3.0"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
@@ -844,6 +846,8 @@ NSMutableAttributedString = AppKit.NSMutableAttributedString
 NSBeep = AppKit.NSBeep
 NSPasteboard = AppKit.NSPasteboard
 
+import FMPasteBoxLayoutObjects
+
 import FMPasteBoxTools
 read_pb = FMPasteBoxTools.read_pb
 makeunicode = FMPasteBoxTools.makeunicode
@@ -1166,11 +1170,14 @@ for typeName in fmpPasteboardTypes:
             f = open(path, 'w')
             f.write( data )
             f.close()
+            if ext == ".xml":
+                FMPasteBoxLayoutObjects.exportAssets( path, sessionFolder )
     except Exception, err:
         print
         print "ADDITIONALS FAILED"
         print err
         print
 </t>
+<t tx="karstenw.20180225140915.1"></t>
 </tnodes>
 </leo_file>

@@ -27,6 +27,8 @@ NSMutableAttributedString = AppKit.NSMutableAttributedString
 NSBeep = AppKit.NSBeep
 NSPasteboard = AppKit.NSPasteboard
 
+import FMPasteBoxLayoutObjects
+
 import FMPasteBoxTools
 read_pb = FMPasteBoxTools.read_pb
 makeunicode = FMPasteBoxTools.makeunicode
@@ -117,6 +119,8 @@ class FMPasteBoxAppDelegate(NSObject):
                         f = open(path, 'w')
                         f.write( data )
                         f.close()
+                        if ext == ".xml":
+                            FMPasteBoxLayoutObjects.exportAssets( path, sessionFolder )
                 except Exception, err:
                     print
                     print "ADDITIONALS FAILED"
