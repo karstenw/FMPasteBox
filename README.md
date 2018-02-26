@@ -38,6 +38,8 @@ The app already has a preferences window in which you can select which Filemaker
 
 
 ## History ##
+2018-02-26 - Version 0.2.0 - Added Layout asset and CSS exports.
+
 2018-02-18 - Version 0.2.0 - Added Export preferences. Exported are the XML files and additional formats (PDF, TIFF, JPG, PICT) if present for layout objects.
 
 2018-02-12 - Version 0.1.1 - Fixed a bug where "Push Clipboard" would destroy the clipboard even if there was nothing to push.
