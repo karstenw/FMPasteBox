@@ -11,6 +11,8 @@ Currently it has only 2 functions:
 + Put the text field contents onto the FileMaker clipboard.
   + This translates the text field back to FileMaker clipboard format. The target format is set by the menu.
 
+If the "Export pasteboard to folder" preference is activated and the "Export Folder" pref points to a valid folder, all "Get Clipboard" actions are logged exported into that folder. If the pasteboard content is any of the layout types, additional exports are done depending on the FileMaker version used.
+
 
 A compiled application can be downloaded from my dropbox: [https://goo.gl/3cacFR](https://goo.gl/3cacFR)
 
@@ -32,13 +34,18 @@ This should work with Filemaker Pro Advanced 10-16; maybe versions 8 & 9 work to
 
 + Switch to FileMaker and paste the result.
 
++ If you activated the "Export pasteboard to folder" preference and assigned a folder to it, all XML and additional pasteboard content will be written to disk. Go explore.
+
+
 ## A note: ##
 
 The app already has a preferences window in which you can select which Filemaker app to use.  This is __not yet functional__.  Just some preparations for future ideas...
 
 
 ## History ##
-2018-02-26 - Version 0.2.0 - Added Layout asset and CSS exports.
+2018-02-27 - Version 0.3.1 - Minor corrections & fixes.
+
+2018-02-26 - Version 0.3.0 - Added Layout asset and CSS exports.
 
 2018-02-18 - Version 0.2.0 - Added Export preferences. Exported are the XML files and additional formats (PDF, TIFF, JPG, PICT) if present for layout objects.
 

@@ -358,7 +358,7 @@ author = "Karsten Wolf"
 years = "2018"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.3.0"
+version = "0.3.1"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
@@ -1153,13 +1153,16 @@ for typeName in fmpPasteboardTypes:
 <t tx="karstenw.20180218113658.1">if os.path.exists( exportFolder ):
     d,t = FMPasteBoxTools.datetimestamp()
     dayFolder = os.path.join( exportFolder, d )
-    sessionFolder = os.path.join( dayFolder, t)
+    mainType = "-"
+    try:
+        mainType = mainType + pasteboardContents.typ.name
+    except:
+        pass
+    sessionFolder = os.path.join( dayFolder, t + mainType)
     try:
         exportItems = pasteboardContents.additionals[:]
         exportItems.append( pasteboardContents )
         for item in exportItems:
-            if not os.path.exists( sessionFolder ):
-                os.makedirs( sessionFolder )
             name = item.typ.name
             ext = item.typ.fileExt
             data = item.data
@@ -1167,9 +1170,13 @@ for typeName in fmpPasteboardTypes:
             if ext == ".xml":
                 data = makeunicode( data )
                 data = data.encode( "utf-8" )
+
+            if not os.path.exists( sessionFolder ):
+                os.makedirs( sessionFolder )
             f = open(path, 'w')
             f.write( data )
             f.close()
+
             if ext == ".xml":
                 FMPasteBoxLayoutObjects.exportAssets( path, sessionFolder )
     except Exception, err:
