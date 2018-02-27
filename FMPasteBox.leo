@@ -81,7 +81,7 @@
 <v t="karstenw.20180207130158.1"><vh>@clean fmpterms.py</vh>
 <v t="karstenw.20180207130250.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130202.1" a="E"><vh>@clean setup.py</vh>
+<v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
 <v t="karstenw.20180207130247.1"><vh>Declarations</vh></v>
 </v>
 </v>

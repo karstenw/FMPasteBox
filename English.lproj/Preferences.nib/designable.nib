@@ -77,14 +77,14 @@
 										<array class="NSMutableArray" key="NSSubviews">
 											<object class="NSTextField" id="626538372">
 												<reference key="NSNextResponder" ref="448256674"/>
-												<int key="NSvFlags">268</int>
+												<int key="NSvFlags">-2147483380</int>
 												<string key="NSFrame">{{14, 313}, {217, 17}}</string>
 												<reference key="NSSuperview" ref="448256674"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="439134474"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="1036215358">
-													<int key="NSCellFlags">67108864</int>
+													<int key="NSCellFlags">603979776</int>
 													<int key="NSCellFlags2">272629760</int>
 													<string key="NSContents">FileMaker Application:</string>
 													<object class="NSFont" key="NSSupport" id="781483016">
@@ -117,14 +117,14 @@
 											</object>
 											<object class="NSTextField" id="439134474">
 												<reference key="NSNextResponder" ref="448256674"/>
-												<int key="NSvFlags">266</int>
+												<int key="NSvFlags">-2147483382</int>
 												<string key="NSFrame">{{17, 283}, {544, 22}}</string>
 												<reference key="NSSuperview" ref="448256674"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="96651854"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="317897961">
-													<int key="NSCellFlags">-2073034687</int>
+													<int key="NSCellFlags">-1536163775</int>
 													<int key="NSCellFlags2">272634880</int>
 													<string key="NSContents"/>
 													<reference key="NSSupport" ref="781483016"/>
@@ -151,14 +151,14 @@
 											</object>
 											<object class="NSButton" id="96651854">
 												<reference key="NSNextResponder" ref="448256674"/>
-												<int key="NSvFlags">265</int>
+												<int key="NSvFlags">-2147483383</int>
 												<string key="NSFrame">{{568, 282}, {25, 23}}</string>
 												<reference key="NSSuperview" ref="448256674"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="237362004"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="110835268">
-													<int key="NSCellFlags">67108864</int>
+													<int key="NSCellFlags">603979776</int>
 													<int key="NSCellFlags2">134217728</int>
 													<string key="NSContents">…</string>
 													<reference key="NSSupport" ref="781483016"/>

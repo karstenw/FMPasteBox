@@ -37,12 +37,12 @@ This should work with Filemaker Pro Advanced 10-16; maybe versions 8 & 9 work to
 + If you activated the "Export pasteboard to folder" preference and assigned a folder to it, all XML and additional pasteboard content will be written to disk. Go explore.
 
 
-## A note: ##
-
-The app already has a preferences window in which you can select which Filemaker app to use.  This is __not yet functional__.  Just some preparations for future ideas...
-
 
 ## History ##
+
+
+2018-02-27 - Version 0.3.2 - Hid and deactivated unused FileMaker preference.
+
 2018-02-27 - Version 0.3.1 - Minor corrections & fixes.
 
 2018-02-26 - Version 0.3.0 - Added Layout asset and CSS exports.
