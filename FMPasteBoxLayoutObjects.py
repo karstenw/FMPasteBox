@@ -15,14 +15,13 @@ import FMPasteBoxTools
 makeunicode = FMPasteBoxTools.makeunicode
 
 
+g_CSSCollector = {}
+
 def stringhash( s ):
     m = hashlib.sha1()
     m.update(s)
     return m.hexdigest().upper()
 
-
-
-g_CSSCollector = {}
 
 def exportAssets( xmlpath, exportfolder ):
     global g_CSSCollector
@@ -46,8 +45,9 @@ def exportAssets( xmlpath, exportfolder ):
             t = l.tag
             if t == u'Object':
                 idx = get_layout_object( l, assetfolder, idx+1)
-
-    print idx, "Object nodes"
+    
+    if 0:
+        print idx, "Object nodes"
     # write out CSS
     exportfolder = os.path.join( exportfolder, "CSS")
     for k in g_CSSCollector:
@@ -189,8 +189,5 @@ def dostyles( node, exportfolder, objectcount ):
     css.hash = stringhash( css.localcss + css.fullcss )
     g_CSSCollector[css.hash] = css
     return objectcount
-
-
-
 
 
