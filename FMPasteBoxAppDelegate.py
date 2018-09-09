@@ -99,6 +99,7 @@ class FMPasteBoxAppDelegate(NSObject):
         exportClipboards = defaults.boolForKey_( u'cbDoExports' )
         if exportClipboards:
             exportFolder = makeunicode(defaults.objectForKey_( u'txtExportsPath' ))
+
             if os.path.exists( exportFolder ):
                 d,t = FMPasteBoxTools.datetimestamp()
                 dayFolder = os.path.join( exportFolder, d )
@@ -133,6 +134,7 @@ class FMPasteBoxAppDelegate(NSObject):
                     print "ADDITIONALS FAILED"
                     print err
                     print
+
         pbType = pasteboardContents.typ
         pbTypeName = pbType.name
         self.menClipboardtype.setTitle_( pbTypeName )

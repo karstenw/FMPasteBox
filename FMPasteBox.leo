@@ -14,13 +14,13 @@
 <v t="karstenw.20180207130303.1"><vh>Declarations</vh></v>
 <v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
-<v t="karstenw.20180207130137.1"><vh>@clean FMPasteBoxAppDelegate.py</vh>
+<v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207130300.2"><vh>class FMPasteBoxAppDelegate</vh>
+<v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
 <v t="karstenw.20180207130300.3"><vh>initialize</vh></v>
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
 <v t="karstenw.20180207130300.6"><vh>applicationDidFinishLaunching_</vh></v>
-<v t="karstenw.20180207130300.4"><vh>getClipboard_</vh>
+<v t="karstenw.20180207130300.4" a="E"><vh>getClipboard_</vh>
 <v t="karstenw.20180218113658.1"><vh>&lt;&lt;export clipboard to folder&gt;&gt;</vh></v>
 </v>
 <v t="karstenw.20180208030448.2"><vh>textView</vh></v>
@@ -908,7 +908,9 @@ def getClipboard_(self, sender):
     exportClipboards = defaults.boolForKey_( u'cbDoExports' )
     if exportClipboards:
         exportFolder = makeunicode(defaults.objectForKey_( u'txtExportsPath' ))
+
         &lt;&lt;export clipboard to folder&gt;&gt;
+
     pbType = pasteboardContents.typ
     pbTypeName = pbType.name
     self.menClipboardtype.setTitle_( pbTypeName )
