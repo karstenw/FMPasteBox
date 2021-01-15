@@ -170,8 +170,10 @@ class CSSCollector:
 def dostyles( node, exportfolder, objectcount ):
     nodes = list(node)
     css = CSSCollector(objectcount)
-    if objectcount == 64:
-        pdb.set_trace()
+    
+    # what was that about ????
+    #if objectcount == 64:
+    #    pdb.set_trace()
 
     for node in nodes:
         cur_tag = node.tag
