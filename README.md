@@ -40,6 +40,7 @@ This should work with Filemaker Pro Advanced 10-16; maybe versions 8 & 9 work to
 
 ## History ##
 
+2022-08-17 - Version 0.4.0 - Move to Python3.8
 
 2018-02-27 - Version 0.3.2 - Hid and deactivated unused FileMaker preference.
 
