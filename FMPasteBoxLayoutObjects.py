@@ -1,5 +1,9 @@
+
+from __future__ import print_function
+
 import sys
 import os
+import io
 
 import binascii
 import base64
@@ -14,6 +18,20 @@ import pdb
 import FMPasteBoxTools
 makeunicode = FMPasteBoxTools.makeunicode
 
+
+# py3 stuff
+
+py3 = False
+try:
+    unicode('')
+    punicode = unicode
+    pstr = str
+    punichr = unichr
+except NameError:
+    punicode = str
+    pstr = bytes
+    py3 = True
+    punichr = chr
 
 g_CSSCollector = {}
 
@@ -33,10 +51,10 @@ def exportAssets( xmlpath, exportfolder ):
     # parse xml file
     try:
         basenode = ElementTree.parse( xmlpath )
-    except  (xml.parsers.expat.ExpatError, SyntaxError), v:
+    except  (xml.parsers.expat.ExpatError, SyntaxError) as v:
         xml.parsers.expat.error()
-        print u"EXCEPTION: '%s'" % v
-        print u"Failed parsing '%s'\n" % xmlpath
+        print( u"EXCEPTION: '%s'" % v )
+        print( u"Failed parsing '%s'" % xmlpath )
         return
 
     idx = 1
@@ -46,23 +64,25 @@ def exportAssets( xmlpath, exportfolder ):
             if t == u'Object':
                 idx = get_layout_object( l, assetfolder, idx+1)
     
-    if 0:
-        print idx, "Object nodes"
+    if 1:
+        print( idx, "Object nodes" )
     # write out CSS
     exportfolder = os.path.join( exportfolder, "CSS")
     for k in g_CSSCollector:
         css = g_CSSCollector[k]
-        foldername = "%s %s" % (str(css.objectcount).rjust(3, '0'), css.themename)
+        foldername = "%s %s" % (str(css.objectcount).rjust(3, '0'), makeunicode(css.themename) )
         folder = os.path.join( exportfolder, foldername)
         if not os.path.exists( folder ):
             os.makedirs( folder )
         path = os.path.join( folder, "local.css")
-        f = open(path, 'w')
-        f.write(css.localcss)
+        f = io.open(path, 'w')
+        s = makeunicode( css.localcss )
+        f.write( s )
         f.close()
         path = os.path.join( folder, "full.css")
-        f = open(path, 'w')
-        f.write(css.fullcss)
+        f = io.open(path, 'w')
+        s = makeunicode( css.fullcss )
+        f.write( s )
         f.close()
 
 
@@ -107,12 +127,12 @@ def get_layout_object(laynode, exportfolder, objectcount):
                             if streamtag == "HexData":
                                 try:
                                     data = binascii.unhexlify ( streamtext )
-                                except TypeError, err:
+                                except TypeError as err:
                                     pass
                             elif streamtag == "Data":
                                 try:
                                     data = base64.b64decode( streamtext )
-                                except TypeError, err:
+                                except TypeError as err:
                                     pass
                             if not data:
                                 continue
@@ -161,10 +181,10 @@ def get_layout_object(laynode, exportfolder, objectcount):
 class CSSCollector:
     def __init__(self, objectcount):
         self.objectcount = objectcount
-        self.localcss = ""
-        self.fullcss = ""
-        self.themename = ""
-        self.hash = ""
+        self.localcss = b""
+        self.fullcss = b""
+        self.themename = b""
+        self.hash = b""
 
 
 def dostyles( node, exportfolder, objectcount ):
@@ -174,16 +194,19 @@ def dostyles( node, exportfolder, objectcount ):
     # what was that about ????
     #if objectcount == 64:
     #    pdb.set_trace()
-
+    
+    def makeutf8( s ):
+        return makeunicode(s).encode("utf-8")
+    
     for node in nodes:
         cur_tag = node.tag
 
         if cur_tag == u'LocalCSS':
-            css.localcss = node.text
+            css.localcss = makeutf8( node.text )
         elif cur_tag == u'FullCSS':
-            css.fullcss = node.text
+            css.fullcss = makeutf8( node.text )
         elif cur_tag == u'ThemeName':
-            css.themename = node.text
+            css.themename = makeutf8( node.text )
 
     data = css.themename + css.localcss + css.fullcss
     if not data:

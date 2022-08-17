@@ -3,8 +3,11 @@
 #  FMPasteBox
 #
 
+from __future__ import print_function
+
 import sys
 import os
+import io
 
 import pprint
 pp = pprint.pprint
@@ -43,6 +46,20 @@ import FMPasteBoxVersion
 import FMPasteBoxPrefController
 PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
 
+# py3 stuff
+
+py3 = False
+try:
+    unicode('')
+    punicode = unicode
+    pstr = str
+    punichr = unichr
+except NameError:
+    punicode = str
+    pstr = bytes
+    py3 = True
+    punichr = chr
+
 class FMPasteBoxAppDelegate(NSObject):
 
     menClipboardtype = objc.IBOutlet()
@@ -53,7 +70,7 @@ class FMPasteBoxAppDelegate(NSObject):
 
     def initialize(self):
         if kwlog:
-            print "FMPasteBoxAppDelegate.initialize()"
+            print( "FMPasteBoxAppDelegate.initialize()" )
         userdefaults = NSMutableDictionary.dictionary()
         userdefaults.setObject_forKey_(u"", u'txtFileMakerAppPath')
         userdefaults.setObject_forKey_(u"", u'txtExportsPath')
@@ -110,6 +127,7 @@ class FMPasteBoxAppDelegate(NSObject):
                     pass
                 sessionFolder = os.path.join( dayFolder, t + mainType)
                 try:
+                    # pdb.set_trace()
                     exportItems = pasteboardContents.additionals[:]
                     exportItems.append( pasteboardContents )
                     for item in exportItems:
@@ -119,21 +137,22 @@ class FMPasteBoxAppDelegate(NSObject):
                         path = os.path.join( sessionFolder, name + ext )
                         if ext == ".xml":
                             data = makeunicode( data )
-                            data = data.encode( "utf-8" )
+                            data = data.encode("utf-8")
 
                         if not os.path.exists( sessionFolder ):
                             os.makedirs( sessionFolder )
-                        f = open(path, 'w')
+                        f = io.open(path, 'wb')
                         f.write( data )
                         f.close()
 
                         if ext == ".xml":
+                            # pdb.set_trace()
                             FMPasteBoxLayoutObjects.exportAssets( path, sessionFolder )
-                except Exception, err:
-                    print
-                    print "ADDITIONALS FAILED"
-                    print err
-                    print
+                except Exception as err:
+                    print()
+                    print( "ADDITIONALS FAILED" )
+                    print( err )
+                    print()
 
         pbType = pasteboardContents.typ
         pbTypeName = pbType.name

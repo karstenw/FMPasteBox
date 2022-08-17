@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
 """Some tools which are needed by most files.
 """
 
@@ -12,8 +14,8 @@ import datetime
 import unicodedata
 import hashlib
 
-import xml.etree.cElementTree
-ElementTree = xml.etree.cElementTree
+import xml.etree.ElementTree
+ElementTree = xml.etree.ElementTree
 
 import mactypes
 import appscript
@@ -28,7 +30,6 @@ import pprint
 pp = pprint.pprint
 
 import urllib
-import urlparse
 
 import objc
 
@@ -47,6 +48,20 @@ NSPasteboard = AppKit.NSPasteboard
 NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
 
+# py3 stuff
+
+py3 = False
+try:
+    unicode('')
+    punicode = unicode
+    pstr = str
+    punichr = unichr
+except NameError:
+    punicode = str
+    pstr = bytes
+    py3 = True
+    punichr = chr
+
 def num2ostype( num ):
     if num == 0:
         return '????'
@@ -59,12 +74,10 @@ def ostype2num( ostype ):
 
 
 def makeunicode(s, srcencoding="utf-8", normalizer="NFC"):
-    try:
-        if type(s) not in (unicode, objc.pyobjc_unicode):
-            s = unicode(s, srcencoding)
-    except TypeError:
-        print "makeunicode type conversion error"
-        print "FAILED converting", type(s), "to unicode"
+    if type(s) not in (punicode, pstr):
+        s = str( s )
+    if type(s) != punicode:
+        s = punicode(s, srcencoding)
     s = unicodedata.normalize(normalizer, s)
     return s
 
@@ -120,7 +133,7 @@ def setFileModificationDate( filepath, modfdt ):
     l['NSFileModificationDate'] = date
     setFileProperties( filepath, l)
     folder, filename = os.path.split( filepath )
-    print "Setting file(%s) modification date to %s" % (filename, repr(modfdt))
+    print( "Setting file(%s) modification date to %s" % (filename, repr(modfdt )))
 
 
 def uniquepath(folder, filenamebase, ext, nfill=3, startindex=1, sep="_", always=True):
@@ -154,7 +167,7 @@ def gethashval( s ):
     m = hashlib.sha1()
     size = len(s)
 
-    t = "blob %i\0%s" % (size, s)
+    t = b"blob %i\0%s" % (size, s)
     m.update(t)
     return  (m.hexdigest(), size)
 
@@ -258,7 +271,7 @@ def get_type_from_hexstring( hexstring ):
     """Extract the 4-char macroman type code from the pasteboard type name."""
     h = int(hexstring, 16)
     s = struct.pack(">I", h)
-    s = unicode(s, 'macroman')
+    s = makeunicode(s, 'macroman')
     return s
 
 
@@ -273,7 +286,7 @@ def get_hexstring_for_type( typ_ ):
 def get_type_from_intstring( intstring ):
     h = int(intstring)
     s = struct.pack(">I", h)
-    s = unicode(s, 'macroman')
+    s = makeunicode(s, 'macroman')
     return s
 
 
@@ -298,6 +311,11 @@ def writePasteboardFlavour( folder, basename, ext, data ):
         f = open ( p, 'wb')
         f.write( data )
         f.close()
+
+# fmpa 18
+# XMVL - 0x584D564C - Value Lists
+# public.utf16-plain-text - Custom Menu Set Catalogue
+# public.utf16-plain-text - Custom Menu Catalogue
 
 
 # fmpa 15
@@ -366,6 +384,9 @@ class PasteboardEntry(object):
 
 
 fmpPasteboardTypes = {
+
+
+
     u"CorePasteboardFlavorType 0x584D4C32":
         PasteboardType(u"CorePasteboardFlavorType 0x584D4C32",
                         'XML2', 'fullXML', "Layout Objects", '.xml'),
@@ -454,8 +475,11 @@ def read_pb():
     # additionalFMPPasteboardTypes
 
     for pbTypeName in pbTypeNames:
+        if 1:
+            print( "pbTypeName:", pbTypeName )
 
         pbType = mainType = None
+
         if pbTypeName in fmpPasteboardTypes:
             pbType = fmpPasteboardTypes.get( pbTypeName )
             mainType = True
@@ -467,6 +491,9 @@ def read_pb():
             continue
 
         try:
+
+            # pdb.set_trace()
+
             s = pasteboard.dataForType_( pbTypeName )
             data = s.bytes().tobytes()
 
@@ -488,19 +515,19 @@ def read_pb():
             else:
                 additionals.append( pbEntry )
 
-        except Exception, v:
-            print v
-            pdb.set_trace()
+        except Exception as v:
+            print( v )
+            # pdb.set_trace()
             pp(locals())
-            print
+            print()
 
     if result:
         result.additionals = additionals
 
-    if kwlog:
-        print
-        print "result = "
+    if 1:
+        print()
+        print( "result = " )
         pp(result)
-        print
+        print()
     return result
 

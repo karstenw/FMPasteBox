@@ -10,12 +10,14 @@
 <find_panel_settings/>
 <vnodes>
 <v t="karstenw.20180225140915.1" a="E"><vh>Application</vh>
-<v t="karstenw.20180207130038.1"><vh>@clean FMPasteBox.py</vh>
+<v t="karstenw.20180207130038.1" a="E"><vh>@clean FMPasteBox.py</vh>
 <v t="karstenw.20180207130303.1"><vh>Declarations</vh></v>
+<v t="karstenw.20220817215519.1"><vh>py3 stuff</vh></v>
 <v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
 <v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
+<v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
 <v t="karstenw.20180207130300.3"><vh>initialize</vh></v>
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
@@ -30,6 +32,7 @@
 </v>
 <v t="karstenw.20180227132744.1" a="E"><vh>@clean FMPasteBoxLayoutObjects.py</vh>
 <v t="karstenw.20180227132751.1"><vh>Declarations</vh></v>
+<v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180227132819.1"><vh>GLOBALS</vh></v>
 <v t="karstenw.20180227132751.2"><vh>stringhash</vh></v>
 <v t="karstenw.20180227132751.3"><vh>exportAssets</vh></v>
@@ -39,20 +42,22 @@
 </v>
 <v t="karstenw.20180227132751.7"><vh>dostyles</vh></v>
 </v>
-<v t="karstenw.20180207130144.1"><vh>@clean FMPasteBoxPrefController.py</vh>
+<v t="karstenw.20180207130144.1" a="E"><vh>@clean FMPasteBoxPrefController.py</vh>
 <v t="karstenw.20180207130257.1"><vh>Declarations</vh></v>
+<v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207130257.2"><vh>class FMPasteBoxPreferenceController</vh>
 <v t="karstenw.20180207130257.3"><vh>init</vh></v>
 <v t="karstenw.20180207130257.4"><vh>windowWillClose_</vh></v>
 <v t="karstenw.20180207130257.5"><vh>chooseFolder_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
+<v t="karstenw.20180207130148.1" a="E"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
-<v t="karstenw.20180207131602.1"><vh>TOOLS</vh>
+<v t="karstenw.20220817215519.1"></v>
+<v t="karstenw.20180207131602.1" a="E"><vh>TOOLS</vh>
 <v t="karstenw.20180207130254.2"><vh>num2ostype</vh></v>
 <v t="karstenw.20180207130254.3"><vh>ostype2num</vh></v>
-<v t="karstenw.20180207130254.4"><vh>makeunicode</vh></v>
+<v t="karstenw.20220817215848.1"><vh>makeunicode</vh></v>
 <v t="karstenw.20180207130254.10"><vh>NSURL2str</vh></v>
 <v t="karstenw.20180207130254.12"><vh>getFileProperties</vh></v>
 <v t="karstenw.20180207130254.13"><vh>setFileProperties</vh></v>
@@ -61,7 +66,7 @@
 <v t="karstenw.20180207130254.16"><vh>uniquepath</vh></v>
 <v t="karstenw.20180207150126.1"><vh>gethashval</vh></v>
 </v>
-<v t="karstenw.20180207131612.1"><vh>DIALOGS</vh>
+<v t="karstenw.20180207131612.1" a="E"><vh>DIALOGS</vh>
 <v t="karstenw.20180207130254.5"><vh>cancelContinueAlert</vh></v>
 <v t="karstenw.20180207130254.6"><vh>errorDialog</vh></v>
 <v t="karstenw.20180207130254.7"><vh>getFileDialog</vh></v>
@@ -69,7 +74,7 @@
 <v t="karstenw.20180207130254.9"><vh>getFolderDialog</vh></v>
 <v t="karstenw.20180207130254.11"><vh>saveAsDialog</vh></v>
 </v>
-<v t="karstenw.20180207131708.1"><vh>PASTEBOARD TOOLS</vh>
+<v t="karstenw.20180207131708.1" a="E"><vh>PASTEBOARD TOOLS</vh>
 <v t="karstenw.20180207130254.17"><vh>get_type_from_hexstring</vh></v>
 <v t="karstenw.20180207130254.18"><vh>get_hexstring_for_type</vh></v>
 <v t="karstenw.20180207130254.19"><vh>get_type_from_intstring</vh></v>
@@ -86,13 +91,13 @@
 <v t="karstenw.20180207130254.22"><vh>read_pb</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130153.1"><vh>@clean FMPasteBoxVersion.py</vh>
+<v t="karstenw.20180207130153.1" a="E"><vh>@clean FMPasteBoxVersion.py</vh>
 <v t="karstenw.20180207130252.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130158.1"><vh>@clean fmpterms.py</vh>
+<v t="karstenw.20180207130158.1" a="E"><vh>@clean fmpterms.py</vh>
 <v t="karstenw.20180207130250.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
+<v t="karstenw.20180207130202.1" a="E"><vh>@clean setup.py</vh>
 <v t="karstenw.20180207130247.1"><vh>Declarations</vh></v>
 </v>
 </v>
@@ -366,7 +371,7 @@ appname ="FMPasteBox"
 appnameshort = "FMPasteBox"
 author = "Karsten Wolf"
 
-years = "2018"
+years = "2018-2022"
 copyright = 'Copyright %s %s' % (years, author)
 
 version = "0.3.1"
@@ -382,6 +387,8 @@ developmentversion = False
 </t>
 <t tx="karstenw.20180207130254.1"># -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
 """Some tools which are needed by most files.
 """
 
@@ -394,8 +401,8 @@ import datetime
 import unicodedata
 import hashlib
 
-import xml.etree.cElementTree
-ElementTree = xml.etree.cElementTree
+import xml.etree.ElementTree
+ElementTree = xml.etree.ElementTree
 
 import mactypes
 import appscript
@@ -522,7 +529,7 @@ def datetimestamp( dt=None ):
     l['NSFileModificationDate'] = date
     setFileProperties( filepath, l)
     folder, filename = os.path.split( filepath )
-    print "Setting file(%s) modification date to %s" % (filename, repr(modfdt))
+    print( "Setting file(%s) modification date to %s" % (filename, repr(modfdt )))
 
 
 </t>
@@ -558,7 +565,7 @@ def datetimestamp( dt=None ):
     """Extract the 4-char macroman type code from the pasteboard type name."""
     h = int(hexstring, 16)
     s = struct.pack("&gt;I", h)
-    s = unicode(s, 'macroman')
+    s = makeunicode(s, 'macroman')
     return s
 
 
@@ -575,7 +582,7 @@ def datetimestamp( dt=None ):
 <t tx="karstenw.20180207130254.19">def get_type_from_intstring( intstring ):
     h = int(intstring)
     s = struct.pack("&gt;I", h)
-    s = unicode(s, 'macroman')
+    s = makeunicode(s, 'macroman')
     return s
 
 
@@ -610,6 +617,11 @@ def datetimestamp( dt=None ):
         f = open ( p, 'wb')
         f.write( data )
         f.close()
+
+# fmpa 18
+# XMVL - 0x584D564C - Value Lists
+# public.utf16-plain-text - Custom Menu Set Catalogue
+# public.utf16-plain-text - Custom Menu Catalogue
 
 
 </t>
@@ -659,37 +671,25 @@ def datetimestamp( dt=None ):
             else:
                 additionals.append( pbEntry )
 
-        except Exception, v:
-            print v
-            pdb.set_trace()
+        except Exception as v:
+            print( v )
+            # pdb.set_trace()
             pp(locals())
-            print
+            print()
 
     if result:
         result.additionals = additionals
 
     if kwlog:
-        print
-        print "result = "
+        print()
+        print( "result = " )
         pp(result)
-        print
+        print()
     return result
 
 </t>
 <t tx="karstenw.20180207130254.3">def ostype2num( ostype ):
     return struct.pack('BBBB', list(ostype))
-
-
-</t>
-<t tx="karstenw.20180207130254.4">def makeunicode(s, srcencoding="utf-8", normalizer="NFC"):
-    try:
-        if type(s) not in (unicode, objc.pyobjc_unicode):
-            s = unicode(s, srcencoding)
-    except TypeError:
-        print "makeunicode type conversion error"
-        print "FAILED converting", type(s), "to unicode"
-    s = unicodedata.normalize(normalizer, s)
-    return s
 
 
 </t>
@@ -764,6 +764,9 @@ def datetimestamp( dt=None ):
 #   Copyright 2018 Karsten Wolf. All rights reserved.
 #
 
+
+from __future__ import print_function
+
 import objc
 
 import Foundation
@@ -833,8 +836,11 @@ def chooseFolder_(self, sender):
 #  FMPasteBox
 #
 
+from __future__ import print_function
+
 import sys
 import os
+import io
 
 import pprint
 pp = pprint.pprint
@@ -886,7 +892,7 @@ PrefController = FMPasteBoxPrefController.FMPasteBoxPreferenceController
 </t>
 <t tx="karstenw.20180207130300.3">def initialize(self):
     if kwlog:
-        print "FMPasteBoxAppDelegate.initialize()"
+        print( "FMPasteBoxAppDelegate.initialize()" )
     userdefaults = NSMutableDictionary.dictionary()
     userdefaults.setObject_forKey_(u"", u'txtFileMakerAppPath')
     userdefaults.setObject_forKey_(u"", u'txtExportsPath')
@@ -961,6 +967,8 @@ def showPreferencePanel_(self, sender):
 #  FMPasteBox.py
 #  FMPasteBox
 #
+
+from __future__ import print_function
 
 import objc
 import Foundation
@@ -1080,6 +1088,9 @@ import FMPasteBoxAppDelegate
 
 </t>
 <t tx="karstenw.20180210171940.1">fmpPasteboardTypes = {
+
+
+
     u"CorePasteboardFlavorType 0x584D4C32":
         PasteboardType(u"CorePasteboardFlavorType 0x584D4C32",
                         'XML2', 'fullXML', "Layout Objects", '.xml'),
@@ -1182,28 +1193,30 @@ for typeName in fmpPasteboardTypes:
             path = os.path.join( sessionFolder, name + ext )
             if ext == ".xml":
                 data = makeunicode( data )
-                data = data.encode( "utf-8" )
 
             if not os.path.exists( sessionFolder ):
                 os.makedirs( sessionFolder )
-            f = open(path, 'w')
+            f = io.open(path, 'w')
             f.write( data )
             f.close()
 
             if ext == ".xml":
                 FMPasteBoxLayoutObjects.exportAssets( path, sessionFolder )
-    except Exception, err:
-        print
-        print "ADDITIONALS FAILED"
-        print err
-        print
+    except Exception as err:
+        print()
+        print( "ADDITIONALS FAILED" )
+        print( err )
+        print()
 </t>
 <t tx="karstenw.20180225140915.1"></t>
 <t tx="karstenw.20180227132744.1">@language python
 @tabwidth -4
 @others
 </t>
-<t tx="karstenw.20180227132751.1">import sys
+<t tx="karstenw.20180227132751.1">
+from __future__ import print_function
+
+import sys
 import os
 
 import binascii
@@ -1238,10 +1251,10 @@ makeunicode = FMPasteBoxTools.makeunicode
     # parse xml file
     try:
         basenode = ElementTree.parse( xmlpath )
-    except  (xml.parsers.expat.ExpatError, SyntaxError), v:
+    except  (xml.parsers.expat.ExpatError, SyntaxError) as v:
         xml.parsers.expat.error()
-        print u"EXCEPTION: '%s'" % v
-        print u"Failed parsing '%s'\n" % xmlpath
+        print( u"EXCEPTION: '%s'" % v )
+        print( u"Failed parsing '%s'" % xmlpath )
         return
 
     idx = 1
@@ -1252,7 +1265,7 @@ makeunicode = FMPasteBoxTools.makeunicode
                 idx = get_layout_object( l, assetfolder, idx+1)
     
     if 0:
-        print idx, "Object nodes"
+        print( idx, "Object nodes" )
     # write out CSS
     exportfolder = os.path.join( exportfolder, "CSS")
     for k in g_CSSCollector:
@@ -1313,12 +1326,12 @@ makeunicode = FMPasteBoxTools.makeunicode
                             if streamtag == "HexData":
                                 try:
                                     data = binascii.unhexlify ( streamtext )
-                                except TypeError, err:
+                                except TypeError as err:
                                     pass
                             elif streamtag == "Data":
                                 try:
                                     data = base64.b64decode( streamtext )
-                                except TypeError, err:
+                                except TypeError as err:
                                     pass
                             if not data:
                                 continue
@@ -1380,8 +1393,10 @@ makeunicode = FMPasteBoxTools.makeunicode
 <t tx="karstenw.20180227132751.7">def dostyles( node, exportfolder, objectcount ):
     nodes = list(node)
     css = CSSCollector(objectcount)
-    if objectcount == 64:
-        pdb.set_trace()
+    
+    # what was that about ????
+    #if objectcount == 64:
+    #    pdb.set_trace()
 
     for node in nodes:
         cur_tag = node.tag
@@ -1403,6 +1418,31 @@ makeunicode = FMPasteBoxTools.makeunicode
 
 </t>
 <t tx="karstenw.20180227132819.1">g_CSSCollector = {}
+
+</t>
+<t tx="karstenw.20220817215519.1"># py3 stuff
+
+py3 = False
+try:
+    unicode('')
+    punicode = unicode
+    pstr = str
+    punichr = unichr
+except NameError:
+    punicode = str
+    pstr = bytes
+    py3 = True
+    punichr = chr
+
+</t>
+<t tx="karstenw.20220817215848.1">def makeunicode(s, srcencoding="utf-8", normalizer="NFC"):
+    if type(s) not in (punicode, pstr):
+        s = str( s )
+    if type(s) != punicode:
+        s = punicode(s, srcencoding)
+    s = unicodedata.normalize(normalizer, s)
+    return s
+
 
 </t>
 </tnodes>
