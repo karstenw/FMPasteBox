@@ -417,7 +417,6 @@ import pprint
 pp = pprint.pprint
 
 import urllib
-import urlparse
 
 import objc
 
@@ -637,8 +636,11 @@ def datetimestamp( dt=None ):
     # additionalFMPPasteboardTypes
 
     for pbTypeName in pbTypeNames:
+        if 1:
+            print( "pbTypeName:", pbTypeName )
 
         pbType = mainType = None
+
         if pbTypeName in fmpPasteboardTypes:
             pbType = fmpPasteboardTypes.get( pbTypeName )
             mainType = True
@@ -650,6 +652,9 @@ def datetimestamp( dt=None ):
             continue
 
         try:
+
+            # pdb.set_trace()
+
             s = pasteboard.dataForType_( pbTypeName )
             data = s.bytes().tobytes()
 
@@ -680,7 +685,7 @@ def datetimestamp( dt=None ):
     if result:
         result.additionals = additionals
 
-    if kwlog:
+    if 1:
         print()
         print( "result = " )
         pp(result)
@@ -1017,7 +1022,7 @@ import FMPasteBoxAppDelegate
     m = hashlib.sha1()
     size = len(s)
 
-    t = "blob %i\0%s" % (size, s)
+    t = b"blob %i\0%s" % (size, s)
     m.update(t)
     return  (m.hexdigest(), size)
 
@@ -1184,6 +1189,7 @@ for typeName in fmpPasteboardTypes:
         pass
     sessionFolder = os.path.join( dayFolder, t + mainType)
     try:
+        # pdb.set_trace()
         exportItems = pasteboardContents.additionals[:]
         exportItems.append( pasteboardContents )
         for item in exportItems:
@@ -1193,14 +1199,16 @@ for typeName in fmpPasteboardTypes:
             path = os.path.join( sessionFolder, name + ext )
             if ext == ".xml":
                 data = makeunicode( data )
+                data = data.encode("utf-8")
 
             if not os.path.exists( sessionFolder ):
                 os.makedirs( sessionFolder )
-            f = io.open(path, 'w')
+            f = io.open(path, 'wb')
             f.write( data )
             f.close()
 
             if ext == ".xml":
+                # pdb.set_trace()
                 FMPasteBoxLayoutObjects.exportAssets( path, sessionFolder )
     except Exception as err:
         print()
@@ -1218,6 +1226,7 @@ from __future__ import print_function
 
 import sys
 import os
+import io
 
 import binascii
 import base64
@@ -1264,23 +1273,25 @@ makeunicode = FMPasteBoxTools.makeunicode
             if t == u'Object':
                 idx = get_layout_object( l, assetfolder, idx+1)
     
-    if 0:
+    if 1:
         print( idx, "Object nodes" )
     # write out CSS
     exportfolder = os.path.join( exportfolder, "CSS")
     for k in g_CSSCollector:
         css = g_CSSCollector[k]
-        foldername = "%s %s" % (str(css.objectcount).rjust(3, '0'), css.themename)
+        foldername = "%s %s" % (str(css.objectcount).rjust(3, '0'), makeunicode(css.themename) )
         folder = os.path.join( exportfolder, foldername)
         if not os.path.exists( folder ):
             os.makedirs( folder )
         path = os.path.join( folder, "local.css")
-        f = open(path, 'w')
-        f.write(css.localcss)
+        f = io.open(path, 'w')
+        s = makeunicode( css.localcss )
+        f.write( s )
         f.close()
         path = os.path.join( folder, "full.css")
-        f = open(path, 'w')
-        f.write(css.fullcss)
+        f = io.open(path, 'w')
+        s = makeunicode( css.fullcss )
+        f.write( s )
         f.close()
 
 
@@ -1383,10 +1394,10 @@ makeunicode = FMPasteBoxTools.makeunicode
 </t>
 <t tx="karstenw.20180227132751.6">def __init__(self, objectcount):
     self.objectcount = objectcount
-    self.localcss = ""
-    self.fullcss = ""
-    self.themename = ""
-    self.hash = ""
+    self.localcss = b""
+    self.fullcss = b""
+    self.themename = b""
+    self.hash = b""
 
 
 </t>
@@ -1397,16 +1408,19 @@ makeunicode = FMPasteBoxTools.makeunicode
     # what was that about ????
     #if objectcount == 64:
     #    pdb.set_trace()
-
+    
+    def makeutf8( s ):
+        return makeunicode(s).encode("utf-8")
+    
     for node in nodes:
         cur_tag = node.tag
 
         if cur_tag == u'LocalCSS':
-            css.localcss = node.text
+            css.localcss = makeutf8( node.text )
         elif cur_tag == u'FullCSS':
-            css.fullcss = node.text
+            css.fullcss = makeutf8( node.text )
         elif cur_tag == u'ThemeName':
-            css.themename = node.text
+            css.themename = makeutf8( node.text )
 
     data = css.themename + css.localcss + css.fullcss
     if not data:
