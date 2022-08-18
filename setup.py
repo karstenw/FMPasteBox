@@ -43,7 +43,9 @@ setup(
         "py2app": {
             "iconfile": "+icon/FMPasteBox.icns",
             # "packages": [],
-            "excludes": ["TkInter", 'Tcl', 'Tk'],
+            "excludes": ['Tkinter', 'tk', 'tkinter',
+                         'scipy', 'matplotlib', 'pandas', 'cv2', 'dlib',
+                         'skimage', 'sklearn', 'mpl_toolkits'],
         }
     } )
 
