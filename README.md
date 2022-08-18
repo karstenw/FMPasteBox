@@ -14,15 +14,17 @@ Currently it has only 2 functions:
 If the "Export pasteboard to folder" preference is activated and the "Export Folder" pref points to a valid folder, all "Get Clipboard" actions are logged exported into that folder. If the pasteboard content is any of the layout types, additional exports are done depending on the FileMaker version used.
 
 
-A compiled application can be downloaded from my dropbox: [https://goo.gl/3cacFR](https://goo.gl/3cacFR)
+A compiled application can be downloaded from the github releases: [https://github.com/karstenw/FMPasteBox/releases](https://github.com/karstenw/FMPasteBox/releases)
 
 FMPasteBox is a Mac apllication written in Python 2.7.14 with PyObjC 4.0.2b1 and py2app 0.15.
 
-It has been tested with FileMaker Pro Advanced 10 & 11 on OSX 10.6 and with FileMaker Pro Advanced 10, 11 & 15 on OSX 10.10.
+The current versions are Python 3.8.12, PyObjc 8.5b1 and py2app 0.28.2
+
+It has been tested with FileMaker Pro Advanced 10 & 11 on OSX 10.6, with FileMaker Pro Advanced 10, 11 & 15 on OSX 10.10 and FileMaker Pro Advanced 15, 16 and 18 on OSX 10.13 and FileMaker Pro 19 on macOS 12.3.1 .
 
 ## Workflow ##
 
-This should work with Filemaker Pro Advanced 10-16; maybe versions 8 & 9 work too.
+This should work with Filemaker Pro Advanced 10-19; maybe versions 8 & 9 work too.
 
 + Copy things in Filemaker. Different versions allow different parts to be copy & pasted. Layout objects should work in all versions.
 
