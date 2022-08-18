@@ -14,9 +14,9 @@ Currently it has only 2 functions:
 If the "Export pasteboard to folder" preference is activated and the "Export Folder" pref points to a valid folder, all "Get Clipboard" actions are logged exported into that folder. If the pasteboard content is any of the layout types, additional exports are done depending on the FileMaker version used.
 
 
-A compiled application can be downloaded from the github releases: [https://github.com/karstenw/FMPasteBox/releases](https://github.com/karstenw/FMPasteBox/releases)
+A compiled application can be downloaded from the github [releases](https://github.com/karstenw/FMPasteBox/releases).
 
-FMPasteBox is a Mac apllication written in Python 2.7.14 with PyObjC 4.0.2b1 and py2app 0.15.
+FMPasteBox is a Mac application written in Python 2.7.14 with PyObjC 4.0.2b1 and py2app 0.15.
 
 The current versions are Python 3.8.12, PyObjc 8.5b1 and py2app 0.28.2
 
