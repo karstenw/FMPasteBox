@@ -7,7 +7,7 @@ author = "Karsten Wolf"
 years = "2018-2022"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.3.1"
+version = "0.4.0"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
