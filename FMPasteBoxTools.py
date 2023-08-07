@@ -331,6 +331,11 @@ def writePasteboardFlavour( folder, basename, ext, data ):
 # XMSS - 0x584D5353 - script step
 # XMLO - 0x584D4C4F - layout objects
 
+# FMPA 18
+# XMVL
+# Custom menu set - XML text
+
+
 
 # FileMaker Developer Pasteboard types
 # beides binaerformate

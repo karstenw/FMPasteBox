@@ -177,7 +177,9 @@ setup(
         "py2app": {
             "iconfile": "+icon/FMPasteBox.icns",
             # "packages": [],
-            "excludes": ["TkInter", 'Tcl', 'Tk'],
+            "excludes": ['Tkinter', 'tk', 'tkinter',
+                         'scipy', 'matplotlib', 'pandas', 'cv2', 'dlib',
+                         'skimage', 'sklearn', 'mpl_toolkits'],
         }
     } )
 
@@ -374,7 +376,7 @@ author = "Karsten Wolf"
 years = "2018-2022"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.3.1"
+version = "0.4.0"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
@@ -1083,6 +1085,11 @@ import FMPasteBoxAppDelegate
 # XMSC - 0x584D5343 - scripts
 # XMSS - 0x584D5353 - script step
 # XMLO - 0x584D4C4F - layout objects
+
+# FMPA 18
+# XMVL
+# Custom menu set - XML text
+
 
 
 # FileMaker Developer Pasteboard types
