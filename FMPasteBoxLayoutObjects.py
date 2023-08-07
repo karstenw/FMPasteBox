@@ -60,8 +60,8 @@ def exportAssets( xmlpath, exportfolder ):
     # pdb.set_trace()
     
     idx = 1
-    for laynode in basenode.iter("Layout"): # getiterator ( "Layout" ):
-        for l in laynode.getchildren():
+    for laynode in basenode.iterfind("Layout"): # getiterator ( "Layout" ):
+        for l in laynode: #.getchildren():
             t = l.tag
             if t == u'Object':
                 idx = get_layout_object( l, assetfolder, idx+1)
@@ -89,6 +89,7 @@ def exportAssets( xmlpath, exportfolder ):
 
 
 def get_layout_object(laynode, exportfolder, objectcount):
+    # pdb.set_trace()
     nodes = list(laynode)
     extensions = dict(zip( ("JPEG","PDF ", "PNGf", "PICT",
                             "GIFf", "8BPS", "BMPf"),
