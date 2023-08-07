@@ -13,7 +13,7 @@ import pprint
 pp = pprint.pprint
 
 import pdb
-kwlog = True
+kwlog = False
 
 import objc
 

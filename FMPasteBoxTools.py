@@ -390,8 +390,6 @@ class PasteboardEntry(object):
 
 fmpPasteboardTypes = {
 
-
-
     u"CorePasteboardFlavorType 0x584D4C32":
         PasteboardType(u"CorePasteboardFlavorType 0x584D4C32",
                         'XML2', 'fullXML', "Layout Objects", '.xml'),
@@ -480,7 +478,7 @@ def read_pb():
     # additionalFMPPasteboardTypes
 
     for pbTypeName in pbTypeNames:
-        if 1:
+        if kwlog:
             print( "pbTypeName:", pbTypeName )
 
         pbType = mainType = None
@@ -529,7 +527,7 @@ def read_pb():
     if result:
         result.additionals = additionals
 
-    if 1:
+    if kwlog:
         print()
         print( "result = " )
         pp(result)

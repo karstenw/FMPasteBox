@@ -16,11 +16,9 @@ If the "Export pasteboard to folder" preference is activated and the "Export Fol
 
 A compiled application can be downloaded from the github [releases](https://github.com/karstenw/FMPasteBox/releases).
 
-FMPasteBox is a Mac application written in Python 2.7.14 with PyObjC 4.0.2b1 and py2app 0.15.
+FMPasteBox is a Mac application written in Python 3.8.12, PyObjc 9.2 and py2app 0.28.6
 
-The current versions are Python 3.8.12, PyObjc 8.5b1 and py2app 0.28.2
-
-It has been tested with FileMaker Pro Advanced 10 & 11 on OSX 10.6, with FileMaker Pro Advanced 10, 11 & 15 on OSX 10.10 and FileMaker Pro Advanced 15, 16 and 18 on OSX 10.13 and FileMaker Pro 19 on macOS 12.3.1 .
+It has been tested with FileMaker Pro Advanced 15, 16 and 18 on OSX 10.13 and FileMaker Pro 19 on macOS 12.3.1 .
 
 ## Workflow ##
 

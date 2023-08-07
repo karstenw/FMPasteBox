@@ -10,12 +10,12 @@
 <find_panel_settings/>
 <vnodes>
 <v t="karstenw.20180225140915.1" a="E"><vh>Application</vh>
-<v t="karstenw.20180207130038.1" a="E"><vh>@clean FMPasteBox.py</vh>
+<v t="karstenw.20180207130038.1"><vh>@clean FMPasteBox.py</vh>
 <v t="karstenw.20180207130303.1"><vh>Declarations</vh></v>
 <v t="karstenw.20220817215519.1"><vh>py3 stuff</vh></v>
 <v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
-<v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
+<v t="karstenw.20180207130137.1"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
 <v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
@@ -30,7 +30,7 @@
 <v t="karstenw.20180207130300.7"><vh>showPreferencePanel_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180227132744.1" a="E"><vh>@clean FMPasteBoxLayoutObjects.py</vh>
+<v t="karstenw.20180227132744.1"><vh>@clean FMPasteBoxLayoutObjects.py</vh>
 <v t="karstenw.20180227132751.1"><vh>Declarations</vh></v>
 <v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180227132819.1"><vh>GLOBALS</vh></v>
@@ -42,7 +42,7 @@
 </v>
 <v t="karstenw.20180227132751.7"><vh>dostyles</vh></v>
 </v>
-<v t="karstenw.20180207130144.1" a="E"><vh>@clean FMPasteBoxPrefController.py</vh>
+<v t="karstenw.20180207130144.1"><vh>@clean FMPasteBoxPrefController.py</vh>
 <v t="karstenw.20180207130257.1"><vh>Declarations</vh></v>
 <v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207130257.2"><vh>class FMPasteBoxPreferenceController</vh>
@@ -51,7 +51,7 @@
 <v t="karstenw.20180207130257.5"><vh>chooseFolder_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130148.1" a="E"><vh>@clean FMPasteBoxTools.py</vh>
+<v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
 <v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207131602.1" a="E"><vh>TOOLS</vh>
@@ -91,13 +91,10 @@
 <v t="karstenw.20180207130254.22"><vh>read_pb</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130153.1" a="E"><vh>@clean FMPasteBoxVersion.py</vh>
+<v t="karstenw.20180207130153.1"><vh>@clean FMPasteBoxVersion.py</vh>
 <v t="karstenw.20180207130252.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130158.1" a="E"><vh>@clean fmpterms.py</vh>
-<v t="karstenw.20180207130250.1"><vh>Declarations</vh></v>
-</v>
-<v t="karstenw.20180207130202.1" a="E"><vh>@clean setup.py</vh>
+<v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
 <v t="karstenw.20180207130247.1"><vh>Declarations</vh></v>
 </v>
 </v>
@@ -123,10 +120,6 @@
 @tabwidth -4
 @others
 
-</t>
-<t tx="karstenw.20180207130158.1">@language python
-@tabwidth -4
-@others
 </t>
 <t tx="karstenw.20180207130202.1">@language python
 @tabwidth -4
@@ -184,199 +177,16 @@ setup(
     } )
 
 </t>
-<t tx="karstenw.20180207130250.1">version = 1.1
-path = u'/Applications/FileMaker/FileMaker Pro 11 Advanced/FileMaker Pro Advanced.app'
-
-classes = \
-[('application', 'capp'),
- ('window', 'cwin'),
- ('document', 'docu'),
- ('database', 'cDB '),
- ('table', 'cTBL'),
- ('FileMaker_script', 'cSCP'),
- ('layout', 'ctbl'),
- ('field', 'ccol'),
- ('record', 'crow'),
- ('cell', 'ccel'),
- ('repetition', 'cREP'),
- ('request', 'cRQT'),
- ('menu_item', 'cmen'),
- ('menu', 'cmnu')]
-
-enums = \
-[('table', 'TABL'),
- ('view', 'VIEW'),
- ('read_only', 'nmod'),
- ('formulas_protected', 'fpro'),
- ('read_write', 'modf'),
- ('no_access', '\x00\x00\x00\x00'),
- ('read', '\x00\x00\x00\x01'),
- ('write', '\x00\x00\x00\x02'),
- ('update', '\x00\x00\x00\x04'),
- ('create', '\x00\x00\x00\x08'),
- ('delete', '\x00\x00\x00\x10'),
- ('read_write', '\x00\x00\x00\x03'),
- ('read_update', '\x00\x00\x00\x05'),
- ('read_create', '\x00\x00\x00\t'),
- ('read_delete', '\x00\x00\x00\x11'),
- ('write_update', '\x00\x00\x00\x06'),
- ('write_create', '\x00\x00\x00\n'),
- ('write_delete', '\x00\x00\x00\x12'),
- ('update_create', '\x00\x00\x00\x0c'),
- ('update_delete', '\x00\x00\x00\x14'),
- ('write_delete', '\x00\x00\x00\x18'),
- ('read_write_update', '\x00\x00\x00\x07'),
- ('read_write_create', '\x00\x00\x00\x0b'),
- ('read_write_delete', '\x00\x00\x00\x13'),
- ('write_update_create', '\x00\x00\x00\x0e'),
- ('write_update_delete', '\x00\x00\x00\x16'),
- ('update_create_delete', '\x00\x00\x00\x1c'),
- ('read_create_delete', '\x00\x00\x00\x19'),
- ('read_update_delete', '\x00\x00\x00\x15'),
- ('write_create_delete', '\x00\x00\x00\x1a'),
- ('read_update_create', '\x00\x00\x00\r'),
- ('no_delete', '\x00\x00\x00\x0f'),
- ('no_create', '\x00\x00\x00\x17'),
- ('no_update', '\x00\x00\x00\x1b'),
- ('no_read', '\x00\x00\x00\x1e'),
- ('no_write', '\x00\x00\x00\x1d'),
- ('full', '\x00\x00\x00\x1f'),
- ('ascending', '\x00\x00\x00\x00'),
- ('descending', '\x00\x00\x00\x01'),
- ('custom', '\x00\x00\x00\x04'),
- ('sum', 'TOTL'),
- ('count', 'CONT'),
- ('mean', 'MEAN'),
- ('standard_deviation', 'STDV'),
- ('average', 'AVRG'),
- ('minimum', 'MIN '),
- ('maximum', 'MAX '),
- ('unlocked', 'NOLK'),
- ('shared_lock', 'SHLK'),
- ('exclusive_lock', 'EXLK'),
- ('false', 'fals'),
- ('sharing_hidden', 'mltH'),
- ('true', 'true'),
- ('single', 'rSgl'),
- ('repeated', 'rFxd'),
- ('guest', 'pGST'),
- ('before_', 'befo'),
- ('after_', 'afte'),
- ('beginning_', 'bgng'),
- ('end_', 'end '),
- ('replace', 'rplc'),
- ('index', 'indx'),
- ('named', 'name'),
- ('ID_', 'ID  ')]
-
-properties = \
-[('best_type', 'pbst'),
- ('class_', 'pcls'),
- ('default_type', 'deft'),
- ('frontmost', 'pisf'),
- ('name', 'pnam'),
- ('version', 'vers'),
- ('bounds', 'pbnd'),
- ('visible', 'pvis'),
- ('index', 'pidx'),
- ('floating', 'isfl'),
- ('zoomable', 'iszm'),
- ('zoomed', 'pzum'),
- ('modal', 'pmod'),
- ('resizable', 'prsz'),
- ('has_close_box', 'hclb'),
- ('has_title_bar', 'ptit'),
- ('current_layout', 'pCLY'),
- ('current_record', 'pCRW'),
- ('current_table', 'pCTB'),
- ('current_cell', 'pCCL'),
- ('modified', 'imod'),
- ('multiuser', 'pMUr'),
- ('lock', 'pLCK'),
- ('access', 'pACS'),
- ('ID_', 'ID  '),
- ('protection', 'ppro'),
- ('kind', 'pKND'),
- ('choices', 'pCHS'),
- ('formula', 'pfor'),
- ('nulls_OK', 'pNLS'),
- ('repeats', 'pRPT'),
- ('repeat_size', 'pRPS'),
- ('unique_value', 'pUNQ'),
- ('globalValue', 'pGLL'),
- ('cellValue', 'vlue'),
- ('omitted', 'pOMT'),
- ('enabled', 'enbl'),
- ('item_number', 'itmn'),
- ('checked', 'pCHK')]
-
-elements = \
-[('applications', 'capp'),
- ('windows', 'cwin'),
- ('documents', 'docu'),
- ('databases', 'cDB '),
- ('tables', 'cTBL'),
- ('FileMaker_scripts', 'cSCP'),
- ('layouts', 'ctbl'),
- ('fields', 'ccol'),
- ('records', 'crow'),
- ('cells', 'ccel'),
- ('repetitions', 'cREP'),
- ('requests', 'cRQT'),
- ('menu_items', 'cmen'),
- ('menus', 'cmnu')]
-
-commands = \
-[('getURL', 'GURLGURL', [('for_accounts', 'pACT')]),
- ('exists', 'coredoex', []),
- ('show', 'miscmvis', []),
- ('close', 'coreclos', []),
- ('redo', 'miscredo', []),
- ('find', 'FMPRFIND', []),
- ('quit', 'aevtquit', []),
- ('cut', 'misccut ', []),
- ('get_remote_URL', 'FMPROPRM', []),
- ('open', 'aevtodoc', [('with_passwords', 'pPAS'), ('for_Accounts', 'pACT')]),
- ('create',
-  'corecrel',
-  [('new', 'kocl'),
-   ('at', 'insh'),
-   ('with_data', 'data'),
-   ('with_properties', 'prdt')]),
- ('get_data', 'coregetd', [('as_', 'rtyp')]),
- ('event_info', 'coregtei', [('in_', 'wrcd')]),
- ('print_',
-  'aevtpdoc',
-  [('with_password', 'pPAS'),
-   ('for_Accounts', 'pACT'),
-   ('from_page', 'StPg'),
-   ('to_page', 'NdPg'),
-   ('with_copies', 'Cpis')]),
- ('duplicate', 'coreclon', [('to', 'insh')]),
- ('save', 'coresave', []),
- ('data_size', 'coredsiz', [('as_', 'rtyp')]),
- ('go_to', 'FMPRGOTO', []),
- ('sort', 'DATASORT', [('by', 'SRTE'), ('in_order', 'SRTT')]),
- ('undo', 'miscundo', []),
- ('set_data', 'coresetd', [('to', 'data')]),
- ('copy', 'misccopy', []),
- ('paste', 'miscpast', []),
- ('count', 'corecnte', [('class_', 'kocl')]),
- ('do_script', 'miscdosc', []),
- ('class_info', 'coreqobj', [('in_', 'wrcd')]),
- ('do_menu', 'miscmenu', [('menu_named', 'menn')]),
- ('delete', 'coredelo', [])]
-</t>
 <t tx="karstenw.20180207130252.1">import os
 
 appname ="FMPasteBox"
 appnameshort = "FMPasteBox"
 author = "Karsten Wolf"
 
-years = "2018-2022"
+years = "2018-2023"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.4.0"
+version = "0.5.0"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
@@ -853,7 +663,7 @@ import pprint
 pp = pprint.pprint
 
 import pdb
-kwlog = True
+kwlog = False
 
 import objc
 
@@ -1272,10 +1082,12 @@ makeunicode = FMPasteBoxTools.makeunicode
         print( u"EXCEPTION: '%s'" % v )
         print( u"Failed parsing '%s'" % xmlpath )
         return
-
+    
+    # pdb.set_trace()
+    
     idx = 1
-    for laynode in basenode.getiterator ( "Layout" ):
-        for l in laynode.getchildren():
+    for laynode in basenode.iterfind("Layout"): # getiterator ( "Layout" ):
+        for l in laynode: #.getchildren():
             t = l.tag
             if t == u'Object':
                 idx = get_layout_object( l, assetfolder, idx+1)
@@ -1304,12 +1116,13 @@ makeunicode = FMPasteBoxTools.makeunicode
 
 </t>
 <t tx="karstenw.20180227132751.4">def get_layout_object(laynode, exportfolder, objectcount):
+    # pdb.set_trace()
     nodes = list(laynode)
     extensions = dict(zip( ("JPEG","PDF ", "PNGf", "PICT",
                             "GIFf", "8BPS", "BMPf"),
                            (".jpg",".pdf", ".png", ".pict",
                             ".gif", ".psd", ".bmp")))
-    exttypelist = extensions.keys()
+    exttypelist = list( extensions.keys() )
 
     for node in nodes:
         cur_tag = node.tag
