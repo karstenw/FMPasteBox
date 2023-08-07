@@ -56,9 +56,11 @@ def exportAssets( xmlpath, exportfolder ):
         print( u"EXCEPTION: '%s'" % v )
         print( u"Failed parsing '%s'" % xmlpath )
         return
-
+    
+    # pdb.set_trace()
+    
     idx = 1
-    for laynode in basenode.getiterator ( "Layout" ):
+    for laynode in basenode.iter("Layout"): # getiterator ( "Layout" ):
         for l in laynode.getchildren():
             t = l.tag
             if t == u'Object':
@@ -92,7 +94,7 @@ def get_layout_object(laynode, exportfolder, objectcount):
                             "GIFf", "8BPS", "BMPf"),
                            (".jpg",".pdf", ".png", ".pict",
                             ".gif", ".psd", ".bmp")))
-    exttypelist = extensions.keys()
+    exttypelist = list( extensions.keys() )
 
     for node in nodes:
         cur_tag = node.tag

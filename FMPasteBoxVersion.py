@@ -4,10 +4,10 @@ appname ="FMPasteBox"
 appnameshort = "FMPasteBox"
 author = "Karsten Wolf"
 
-years = "2018-2022"
+years = "2018-2023"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.4.0"
+version = "0.5.0"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
