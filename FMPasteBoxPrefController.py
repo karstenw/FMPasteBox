@@ -15,7 +15,7 @@ NSUserDefaults = Foundation.NSUserDefaults
 
 
 import AppKit
-NSApplication = AppKit.NSApplication
+# NSApplication = AppKit.NSApplication
 NSWindowController = AppKit.NSWindowController
 
 import FMPasteBoxTools

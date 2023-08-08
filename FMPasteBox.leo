@@ -208,17 +208,13 @@ import sys
 import os
 import re
 import struct
-import traceback
+# import traceback
 import datetime
 import unicodedata
 import hashlib
 
-import xml.etree.ElementTree
-ElementTree = xml.etree.ElementTree
-
-import mactypes
-import appscript
-asc = appscript
+#import xml.etree.ElementTree
+#ElementTree = xml.etree.ElementTree
 
 import pdb
 import FMPasteBoxVersion
@@ -235,8 +231,8 @@ import objc
 import Foundation
 NSURL = Foundation.NSURL
 NSFileManager = Foundation.NSFileManager
-NSUserDefaults = Foundation.NSUserDefaults
-NSString = Foundation.NSString
+# NSUserDefaults = Foundation.NSUserDefaults
+# NSString = Foundation.NSString
 
 import AppKit
 NSOpenPanel = AppKit.NSOpenPanel
@@ -244,7 +240,7 @@ NSAlert = AppKit.NSAlert
 NSSavePanel = AppKit.NSSavePanel
 NSFileHandlingPanelOKButton  = AppKit.NSFileHandlingPanelOKButton
 NSPasteboard = AppKit.NSPasteboard
-NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
+# NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
 
 </t>
@@ -448,7 +444,7 @@ def datetimestamp( dt=None ):
     # additionalFMPPasteboardTypes
 
     for pbTypeName in pbTypeNames:
-        if 1:
+        if kwlog:
             print( "pbTypeName:", pbTypeName )
 
         pbType = mainType = None
@@ -497,7 +493,7 @@ def datetimestamp( dt=None ):
     if result:
         result.additionals = additionals
 
-    if 1:
+    if kwlog:
         print()
         print( "result = " )
         pp(result)
@@ -591,7 +587,7 @@ NSUserDefaults = Foundation.NSUserDefaults
 
 
 import AppKit
-NSApplication = AppKit.NSApplication
+# NSApplication = AppKit.NSApplication
 NSWindowController = AppKit.NSWindowController
 
 import FMPasteBoxTools
@@ -910,8 +906,6 @@ import FMPasteBoxAppDelegate
 
 </t>
 <t tx="karstenw.20180210171940.1">fmpPasteboardTypes = {
-
-
 
     u"CorePasteboardFlavorType 0x584D4C32":
         PasteboardType(u"CorePasteboardFlavorType 0x584D4C32",
