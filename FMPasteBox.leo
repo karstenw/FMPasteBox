@@ -15,7 +15,7 @@
 <v t="karstenw.20220817215519.1"><vh>py3 stuff</vh></v>
 <v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
-<v t="karstenw.20180207130137.1"><vh>@clean FMPasteBoxAppDelegate.py</vh>
+<v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
 <v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
@@ -54,7 +54,7 @@
 <v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
 <v t="karstenw.20220817215519.1"></v>
-<v t="karstenw.20180207131602.1" a="E"><vh>TOOLS</vh>
+<v t="karstenw.20180207131602.1"><vh>TOOLS</vh>
 <v t="karstenw.20180207130254.2"><vh>num2ostype</vh></v>
 <v t="karstenw.20180207130254.3"><vh>ostype2num</vh></v>
 <v t="karstenw.20220817215848.1"><vh>makeunicode</vh></v>
@@ -66,7 +66,7 @@
 <v t="karstenw.20180207130254.16"><vh>uniquepath</vh></v>
 <v t="karstenw.20180207150126.1"><vh>gethashval</vh></v>
 </v>
-<v t="karstenw.20180207131612.1" a="E"><vh>DIALOGS</vh>
+<v t="karstenw.20180207131612.1"><vh>DIALOGS</vh>
 <v t="karstenw.20180207130254.5"><vh>cancelContinueAlert</vh></v>
 <v t="karstenw.20180207130254.6"><vh>errorDialog</vh></v>
 <v t="karstenw.20180207130254.7"><vh>getFileDialog</vh></v>
@@ -74,7 +74,7 @@
 <v t="karstenw.20180207130254.9"><vh>getFolderDialog</vh></v>
 <v t="karstenw.20180207130254.11"><vh>saveAsDialog</vh></v>
 </v>
-<v t="karstenw.20180207131708.1" a="E"><vh>PASTEBOARD TOOLS</vh>
+<v t="karstenw.20180207131708.1"><vh>PASTEBOARD TOOLS</vh>
 <v t="karstenw.20180207130254.17"><vh>get_type_from_hexstring</vh></v>
 <v t="karstenw.20180207130254.18"><vh>get_hexstring_for_type</vh></v>
 <v t="karstenw.20180207130254.19"><vh>get_type_from_intstring</vh></v>
@@ -91,7 +91,7 @@
 <v t="karstenw.20180207130254.22"><vh>read_pb</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130153.1"><vh>@clean FMPasteBoxVersion.py</vh>
+<v t="karstenw.20180207130153.1" a="E"><vh>@clean FMPasteBoxVersion.py</vh>
 <v t="karstenw.20180207130252.1"><vh>Declarations</vh></v>
 </v>
 <v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
@@ -195,7 +195,7 @@ longdescription = u"""FMPasteBox is a Mac OS X application for translating the F
 
 #document_creator = "Created by %s %s" % (appname, version)
 
-developmentversion = False
+developmentversion = True
 </t>
 <t tx="karstenw.20180207130254.1"># -*- coding: utf-8 -*-
 

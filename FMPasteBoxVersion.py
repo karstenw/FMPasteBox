@@ -16,5 +16,5 @@ longdescription = u"""FMPasteBox is a Mac OS X application for translating the F
 
 #document_creator = "Created by %s %s" % (appname, version)
 
-developmentversion = False
+developmentversion = True
 
