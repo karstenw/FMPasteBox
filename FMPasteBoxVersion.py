@@ -4,10 +4,10 @@ appname ="FMPasteBox"
 appnameshort = "FMPasteBox"
 author = "Karsten Wolf"
 
-years = "2018-2023"
+years = "2018-2025"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.5.0"
+version = "0.5.1"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
@@ -16,5 +16,5 @@ longdescription = u"""FMPasteBox is a Mac OS X application for translating the F
 
 #document_creator = "Created by %s %s" % (appname, version)
 
-developmentversion = True
+developmentversion = False
 

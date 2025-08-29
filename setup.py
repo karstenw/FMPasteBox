@@ -43,9 +43,19 @@ setup(
         "py2app": {
             "iconfile": "+icon/FMPasteBox.icns",
             # "packages": [],
-            "excludes": ['Tkinter', 'tk', 'tkinter',
-                         'scipy', 'matplotlib', 'pandas', 'cv2', 'dlib',
-                         'skimage', 'sklearn', 'mpl_toolkits'],
+            "excludes": [
+                'TkInter', 'tkinter', 'tk', 'wx', 'sphinx',
+                'pyqt5', 'qt5', 'PyQt5', 
+                
+                'setuptools', 'numba', 
+                
+                # 'certifi', 'pytz', 
+                'notebook', 'nbformat', 'jedi', 'testpath', 'docutils',
+                'ipykernel', 'parso', 'Cython', 'sphinx_rtd_theme', 'alabaster',
+                'tornado', 'IPython', 'numpydoc', 'nbconvert', 
+                'scipy', 'matplotlib', 
+                'pandas', 'cv2', 'dlib', 'skimage', 'sklearn', 'mpl_toolkits', 
+            ],
         }
     } )
 
