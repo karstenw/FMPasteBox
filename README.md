@@ -40,6 +40,8 @@ This should work with Filemaker Pro Advanced 10-19; maybe versions 8 & 9 work to
 
 ## History ##
 
+2025-08-29 - Version 0.5.1 - Move to Python3.13 and PyObjC 11.1
+
 2023-08-07 - Version 0.5.0 - Move to Python3.11 and universal2
 
 2022-08-17 - Version 0.4.0 - Move to Python3.8
