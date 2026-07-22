@@ -10,14 +10,12 @@
 <find_panel_settings/>
 <vnodes>
 <v t="karstenw.20180225140915.1" a="E"><vh>Application</vh>
-<v t="karstenw.20180207130038.1"><vh>@clean FMPasteBox.py</vh>
+<v t="karstenw.20180207130038.1" a="E"><vh>@clean FMPasteBox.py</vh>
 <v t="karstenw.20180207130303.1"><vh>Declarations</vh></v>
-<v t="karstenw.20220817215519.1"><vh>py3 stuff</vh></v>
 <v t="karstenw.20180212004119.1"><vh>Main loop</vh></v>
 </v>
 <v t="karstenw.20180207130137.1" a="E"><vh>@clean FMPasteBoxAppDelegate.py</vh>
 <v t="karstenw.20180207130300.1"><vh>Declarations</vh></v>
-<v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207130300.2" a="E"><vh>class FMPasteBoxAppDelegate</vh>
 <v t="karstenw.20180207130300.3"><vh>initialize</vh></v>
 <v t="karstenw.20180207225504.1"><vh>awakeFromNib</vh></v>
@@ -30,9 +28,8 @@
 <v t="karstenw.20180207130300.7"><vh>showPreferencePanel_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180227132744.1"><vh>@clean FMPasteBoxLayoutObjects.py</vh>
+<v t="karstenw.20180227132744.1" a="E"><vh>@clean FMPasteBoxLayoutObjects.py</vh>
 <v t="karstenw.20180227132751.1"><vh>Declarations</vh></v>
-<v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180227132819.1"><vh>GLOBALS</vh></v>
 <v t="karstenw.20180227132751.2"><vh>stringhash</vh></v>
 <v t="karstenw.20180227132751.3"><vh>exportAssets</vh></v>
@@ -42,19 +39,17 @@
 </v>
 <v t="karstenw.20180227132751.7"><vh>dostyles</vh></v>
 </v>
-<v t="karstenw.20180207130144.1"><vh>@clean FMPasteBoxPrefController.py</vh>
+<v t="karstenw.20180207130144.1" a="E"><vh>@clean FMPasteBoxPrefController.py</vh>
 <v t="karstenw.20180207130257.1"><vh>Declarations</vh></v>
-<v t="karstenw.20220817215519.1"></v>
 <v t="karstenw.20180207130257.2"><vh>class FMPasteBoxPreferenceController</vh>
 <v t="karstenw.20180207130257.3"><vh>init</vh></v>
 <v t="karstenw.20180207130257.4"><vh>windowWillClose_</vh></v>
 <v t="karstenw.20180207130257.5"><vh>chooseFolder_</vh></v>
 </v>
 </v>
-<v t="karstenw.20180207130148.1"><vh>@clean FMPasteBoxTools.py</vh>
+<v t="karstenw.20180207130148.1" a="E"><vh>@clean FMPasteBoxTools.py</vh>
 <v t="karstenw.20180207130254.1"><vh>Declarations</vh></v>
-<v t="karstenw.20220817215519.1"></v>
-<v t="karstenw.20180207131602.1"><vh>TOOLS</vh>
+<v t="karstenw.20180207131602.1" a="E"><vh>TOOLS</vh>
 <v t="karstenw.20180207130254.2"><vh>num2ostype</vh></v>
 <v t="karstenw.20180207130254.3"><vh>ostype2num</vh></v>
 <v t="karstenw.20220817215848.1"><vh>makeunicode</vh></v>
@@ -94,7 +89,7 @@
 <v t="karstenw.20180207130153.1" a="E"><vh>@clean FMPasteBoxVersion.py</vh>
 <v t="karstenw.20180207130252.1"><vh>Declarations</vh></v>
 </v>
-<v t="karstenw.20180207130202.1"><vh>@clean setup.py</vh>
+<v t="karstenw.20180207130202.1" a="E"><vh>@clean setup.py</vh>
 <v t="karstenw.20180207130247.1"><vh>Declarations</vh></v>
 </v>
 </v>
@@ -170,9 +165,19 @@ setup(
         "py2app": {
             "iconfile": "+icon/FMPasteBox.icns",
             # "packages": [],
-            "excludes": ['Tkinter', 'tk', 'tkinter',
-                         'scipy', 'matplotlib', 'pandas', 'cv2', 'dlib',
-                         'skimage', 'sklearn', 'mpl_toolkits'],
+            "excludes": [
+                'TkInter', 'tkinter', 'tk', 'wx', 'sphinx',
+                'pyqt5', 'qt5', 'PyQt5', 
+                
+                'setuptools', 'numba', 
+                
+                # 'certifi', 'pytz', 
+                'notebook', 'nbformat', 'jedi', 'testpath', 'docutils',
+                'ipykernel', 'parso', 'Cython', 'sphinx_rtd_theme', 'alabaster',
+                'tornado', 'IPython', 'numpydoc', 'nbconvert', 
+                'scipy', 'matplotlib', 
+                'pandas', 'cv2', 'dlib', 'skimage', 'sklearn', 'mpl_toolkits', 
+            ],
         }
     } )
 
@@ -183,10 +188,10 @@ appname ="FMPasteBox"
 appnameshort = "FMPasteBox"
 author = "Karsten Wolf"
 
-years = "2018-2023"
+years = "2018-2026"
 copyright = 'Copyright %s %s' % (years, author)
 
-version = "0.5.0"
+version = "0.5.2"
 creator = 'KWFP'
 bundleID = "org.kw.FMPasteBox"
 
@@ -195,7 +200,7 @@ longdescription = u"""FMPasteBox is a Mac OS X application for translating the F
 
 #document_creator = "Created by %s %s" % (appname, version)
 
-developmentversion = True
+developmentversion = False
 </t>
 <t tx="karstenw.20180207130254.1"># -*- coding: utf-8 -*-
 
@@ -1248,26 +1253,11 @@ makeunicode = FMPasteBoxTools.makeunicode
 <t tx="karstenw.20180227132819.1">g_CSSCollector = {}
 
 </t>
-<t tx="karstenw.20220817215519.1"># py3 stuff
-
-py3 = False
-try:
-    unicode('')
-    punicode = unicode
-    pstr = str
-    punichr = unichr
-except NameError:
-    punicode = str
-    pstr = bytes
-    py3 = True
-    punichr = chr
-
-</t>
 <t tx="karstenw.20220817215848.1">def makeunicode(s, srcencoding="utf-8", normalizer="NFC"):
-    if type(s) not in (punicode, pstr):
+    if type(s) not in (str, bytes):
         s = str( s )
-    if type(s) != punicode:
-        s = punicode(s, srcencoding)
+    if type(s) != str:
+        s = str(s, srcencoding)
     s = unicodedata.normalize(normalizer, s)
     return s
 

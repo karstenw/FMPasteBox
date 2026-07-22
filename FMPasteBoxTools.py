@@ -44,20 +44,6 @@ NSPasteboard = AppKit.NSPasteboard
 # NSPasteboardCommunicationException = AppKit.NSPasteboardCommunicationException
 
 
-# py3 stuff
-
-py3 = False
-try:
-    unicode('')
-    punicode = unicode
-    pstr = str
-    punichr = unichr
-except NameError:
-    punicode = str
-    pstr = bytes
-    py3 = True
-    punichr = chr
-
 def num2ostype( num ):
     if num == 0:
         return '????'
@@ -70,10 +56,10 @@ def ostype2num( ostype ):
 
 
 def makeunicode(s, srcencoding="utf-8", normalizer="NFC"):
-    if type(s) not in (punicode, pstr):
+    if type(s) not in (str, bytes):
         s = str( s )
-    if type(s) != punicode:
-        s = punicode(s, srcencoding)
+    if type(s) != str:
+        s = str(s, srcencoding)
     s = unicodedata.normalize(normalizer, s)
     return s
 

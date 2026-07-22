@@ -4,7 +4,7 @@ appname ="FMPasteBox"
 appnameshort = "FMPasteBox"
 author = "Karsten Wolf"
 
-years = "2018-2025"
+years = "2018-2026"
 copyright = 'Copyright %s %s' % (years, author)
 
 version = "0.5.2"
